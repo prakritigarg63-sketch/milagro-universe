@@ -8,7 +8,7 @@ import styles from "./MilagroIconAnimation.module.css";
  *
  * EMPTY → BLUEPRINT → STRUCTURE → CONNECTION → WATER → ORIGINAL ICON.
  *
- * Same principle as BathCraftLogoAnimation: nothing here redraws the mark. The
+ * Same principle as MilagroLogoAnimation: nothing here redraws the mark. The
  * ink is the four pixel-exact slices of the supplied icon (see
  * docs/logo-geometry.md), each revealed through an SVG mask whose stroke sweeps
  * along that element's centreline. The pale-blue blueprint underneath is the

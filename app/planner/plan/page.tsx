@@ -1,140 +1,271 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { WizardShell } from "@/components/planner/shell/WizardShell";
-import { ProgressBar } from "@/components/planner/shell/ProgressBar";
-import { StepFooterCta } from "@/components/planner/sections/StepFooterCta";
-import { StepCard } from "@/components/planner/ui/StepCard";
-import { MaterialIcon } from "@/components/planner/ui/MaterialIcon";
-import { Plan4DViewer } from "@/components/planner/plan3d/Plan4DViewer";
-import { StyleInspiration } from "@/components/planner/sections/StyleInspiration";
-import { useI18n } from "@/lib/planner/i18n/provider";
-import { useEnsureProject } from "@/lib/planner/store/use-ensure-project";
+import Icon from "@/components/ui/Icon";
+import { useT } from "@/lib/i18n/useT";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { useProjectStore } from "@/lib/planner/store/project-store";
-import type { ClearanceWarning } from "@/lib/planner/types";
+import { useEnsureProject } from "@/lib/planner/store/use-ensure-project";
+import { useStudioStore } from "@/lib/planner/studio/studio-store";
+import { StudioShell } from "@/components/planner/studio/StudioShell";
+import { StepFooter } from "@/components/planner/studio/StepFooter";
+import { RoomView3D, type ViewPalette } from "@/components/planner/studio/RoomView3D";
+import { RoomPlan } from "@/components/planner/studio/RoomPlan";
+import { optionFor } from "@/lib/planner/studio/finishes";
+import { formatLakh, projectRange } from "@/lib/planner/studio/materials";
+import { openPrintablePlan } from "@/lib/planner/studio/printable";
+import { SharePanel } from "@/components/planner/studio/SharePanel";
 
-export default function PlanStepPage() {
-  const { t } = useI18n();
+/**
+ * Screen 12 — the finished plan.
+ *
+ * The reward screen. Everything decided, in one place, with the number the
+ * homeowner came for. The three actions that need an account are gated here and
+ * only here — by this point there is something genuinely worth keeping.
+ */
+export default function PlanPage() {
+  const t = useT();
   const router = useRouter();
-  const { ready } = useEnsureProject();
-  const project = useProjectStore((s) => s.project);
-  const generatePlan = useProjectStore((s) => s.generatePlan);
+  const { user } = useAuth();
+  const { project } = useEnsureProject();
+  const generateEstimate = useProjectStore((s) => s.generateEstimate);
+  const finalize = useProjectStore((s) => s.finalize);
+  const openSaveGate = useStudioStore((s) => s.openSaveGate);
 
-  // Generate from the current inputs whenever the plan step is opened.
+  const [savedNote, setSavedNote] = useState<string | null>(null);
+  const [shareNote, setShareNote] = useState<string | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
+
+  const signature = project
+    ? `${project.room.lengthInches}x${project.room.widthInches}:${project.style.costTier}:${project.fixtures.length}`
+    : null;
+
   useEffect(() => {
-    if (ready) generatePlan();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready]);
+    if (signature) generateEstimate();
+  }, [signature, generateEstimate]);
 
-  const plan = project?.plan ?? null;
-  const loaded = ready && project && plan;
+  const room = project?.room;
+  const fixtures = project?.placedFixtures ?? project?.plan?.fixtures ?? [];
+  const estimate = project?.estimate ?? null;
+  const range = estimate ? projectRange(estimate.totalCostInr) : null;
+  const finishes = useMemo(() => project?.finishes ?? {}, [project?.finishes]);
+
+  const palette: ViewPalette = {
+    floor: optionFor("floor", finishes.floor)?.color,
+    floorAccent: optionFor("floor", finishes.floor)?.accent,
+    walls: optionFor("walls", finishes.walls)?.color,
+    wallsAccent: optionFor("walls", finishes.walls)?.accent,
+    vanity: optionFor("vanity", finishes.vanity)?.color,
+    shower: optionFor("shower", finishes.shower)?.color,
+    wc: optionFor("wc", finishes.wc)?.color,
+    almirah: optionFor("vanity", finishes.vanity)?.accent,
+    light: optionFor("lighting", finishes.lighting)?.color,
+  };
+
+  /** What is actually decided, so the checklist cannot claim more than is true. */
+  const checklist = [
+    { label: "Bathroom measurements", done: Boolean(room) },
+    { label: "Final layout", done: Boolean(project?.selectedLayoutId) },
+    { label: "2D plan", done: fixtures.length > 0 },
+    { label: "3D visualization", done: fixtures.length > 0 },
+    { label: "Selected fixtures", done: fixtures.length > 0 },
+    { label: "Tiles & finishes", done: Object.keys(finishes).length > 0 },
+    { label: "Material quantities", done: Boolean(estimate?.bom.length) },
+    { label: "Indicative budget", done: Boolean(estimate) },
+  ];
+
+  function handleSave() {
+    if (!user) {
+      openSaveGate("save");
+      return;
+    }
+    finalize();
+    setSavedNote(t("Saved to your account."));
+    window.setTimeout(() => setSavedNote(null), 2600);
+  }
+
+  function handleDownload() {
+    if (!user) {
+      openSaveGate("download");
+      return;
+    }
+    if (project) openPrintablePlan(project);
+  }
+
+  function handleShare() {
+    if (!user) {
+      openSaveGate("share");
+      return;
+    }
+    // A guest project lives in this browser and has no server id to invite
+    // anyone to. Signing in migrates it first (see claimGuestProjects), so by
+    // the time we get here there should be a real project — but check, rather
+    // than minting an invite against an id the server has never seen.
+    if (!project || project.ownerId === "guest") {
+      setShareNote(t("Save the plan first, then you can share it."));
+      window.setTimeout(() => setShareNote(null), 3200);
+      return;
+    }
+    setShareOpen(true);
+  }
 
   return (
-    <WizardShell
-      subtitle={t.appSub4}
-      progress={<ProgressBar badge={t.step4Badge} step={4} total={6} icon="view_in_ar" />}
+    <StudioShell
+      stepId="plan"
       footer={
-        <StepFooterCta
-          label={t.s4CtaText}
-          subLabel={t.s4CtaSub}
-          onClick={() => router.push("/planner/estimate")}
-          onBack={() => router.push("/planner/fixtures")}
-          backLabel={t.backCta}
-          disabled={!ready}
+        <StepFooter
+          stepId="plan"
+          continueLabel={t("Save my bathroom")}
+          continueOverride={handleSave}
         />
       }
     >
-      {loaded ? (
-        <div className="pl-sections">
-          {/* The 4D plan spans both columns; the checks and inspiration pair up below it. */}
-          <StepCard style={{ display: "flex", flexDirection: "column", gap: 12, gridColumn: "1 / -1" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <MaterialIcon name="view_in_ar" size={20} color="var(--color-primary-accent)" />
-                <div>
-                  <h2 style={{ fontWeight: 700, fontSize: "calc(17px * var(--pl-fs, 1))", margin: 0, color: "var(--color-on-surface)" }}>
-                    {t.plan4dTitle}
-                  </h2>
-                  <p style={{ fontSize: "calc(12px * var(--pl-fs, 1))", margin: 0, color: "var(--color-on-surface-variant)" }}>
-                    {t.plan4dSub}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => generatePlan()}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 4,
-                  height: 36,
-                  padding: "0 12px",
-                  borderRadius: 999,
-                  background: "var(--color-surface-low)",
-                  border: "1px solid var(--color-surface-high)",
-                  color: "var(--color-primary-accent)",
-                  fontWeight: 700,
-                  fontSize: "calc(12px * var(--pl-fs, 1))",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                }}
-              >
-                <MaterialIcon name="refresh" size={15} color="var(--color-primary-accent)" />
-                {t.regenerate}
-              </button>
+      <header className="max-w-2xl">
+        <h1 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[44px]">
+          {t("Your bathroom is ready to take shape.")}
+        </h1>
+        <p className="mt-4 text-[16px] leading-relaxed text-body">
+          {t("Everything you’ve planned, in one place.")}
+        </p>
+      </header>
+
+      {room && (
+        <>
+          <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+            <div className="flex items-center overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-7">
+              <RoomView3D
+                room={room}
+                fixtures={fixtures}
+                selectedIndex={null}
+                doorDetail={project.doorDetail}
+                palette={palette}
+                showcase
+              />
             </div>
+            {/* The plan is wider than it is tall, so it would sit at the top of a
+                stretched grid cell with a void beneath it. Centre it instead. */}
+            <div className="flex items-center overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-7">
+              <RoomPlan
+                room={room}
+                unit="ft"
+                placed={fixtures}
+                doorDetail={project.doorDetail}
+                extraOpenings={project.extraOpenings}
+                plumbing={project.plumbing}
+                ariaLabel={t("Final 2D plan")}
+              />
+            </div>
+          </div>
 
-            <Plan4DViewer project={project} plan={plan} />
-          </StepCard>
+          <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,380px)]">
+            {/* ── Checklist ──────────────────────────────────────────── */}
+            <section className="rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-6">
+              <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-body-soft">
+                {t("Your Milagro plan")}
+              </h2>
+              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                {checklist.map((item) => (
+                  <li key={item.label} className="flex items-start gap-2 text-[14px]">
+                    <Icon
+                      name={item.done ? "check" : "close"}
+                      size={14}
+                      className={`mt-1 shrink-0 ${item.done ? "text-brand" : "text-body-soft"}`}
+                    />
+                    <span className={item.done ? "text-ink" : "text-body-soft"}>
+                      {t(item.label)}
+                      {!item.done && (
+                        <span className="ml-1 text-[12px]">({t("not set")})</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-          <StepCard style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <MaterialIcon name="rule" size={20} color="var(--color-primary-accent)" />
-                <h2 style={{ fontWeight: 700, fontSize: "calc(17px * var(--pl-fs, 1))", margin: 0, color: "var(--color-on-surface)" }}>
-                  {t.clearancesTitle}
-                </h2>
-              </div>
-              {plan.warnings.length === 0 ? (
-                <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--color-on-surface-variant)", fontSize: "calc(13px * var(--pl-fs, 1))" }}>
-                  <MaterialIcon name="check_circle" size={18} color="#16a34a" />
-                  <span>{t.allClear}</span>
-                </div>
+            {/* ── Range + actions ────────────────────────────────────── */}
+            <aside className="rounded-2xl border border-brand/30 bg-wash p-5 sm:p-6">
+              <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand">
+                {t("Estimated project range")}
+              </h2>
+              {range ? (
+                <p className="mt-2 text-[30px] font-semibold leading-tight tracking-[-0.02em] text-ink tabular-nums">
+                  {formatLakh(range.lowInr)} – {formatLakh(range.highInr)}
+                </p>
               ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {plan.warnings.map((w, i) => (
-                    <WarningRow key={i} warning={w} />
-                  ))}
-                </div>
+                <p className="mt-2 text-[14px] text-body-soft">{t("Working it out…")}</p>
               )}
-            </StepCard>
+              <p className="mt-1 text-[13px] text-body">{t("Planning estimate")}</p>
 
-          <StyleInspiration />
-        </div>
-      ) : (
-        <div className="pl-loading">Loading…</div>
+              <div className="mt-5 space-y-2">
+                <button
+                  type="button"
+                  onClick={handleSave}
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-pill bg-clay
+                             text-[14px] font-semibold text-on-clay transition-colors hover:bg-clay-dark"
+                >
+                  <Icon name="bookmark" size={16} />
+                  {t("Save my bathroom")}
+                </button>
+                <div className="grid grid-cols-2 gap-2">
+                  <ActionButton icon="arrowDown" label={t("Download")} onClick={handleDownload} />
+                  <ActionButton icon="swap" label={t("Share")} onClick={handleShare} />
+                </div>
+                <ActionButton
+                  icon="home"
+                  label={t("Edit design")}
+                  onClick={() => router.push("/planner/design")}
+                  full
+                />
+              </div>
+
+              {(savedNote || shareNote) && (
+                <p className="mt-3 text-center text-[12.5px] text-body" role="status">
+                  {savedNote ?? shareNote}
+                </p>
+              )}
+            </aside>
+          </div>
+
+          <p className="mt-6 max-w-2xl text-[12.5px] leading-relaxed text-body-soft">
+            {t(
+              "This plan is a starting point for conversations with contractors and suppliers — not a construction drawing or a quote. Measurements, quantities and prices should all be confirmed on site.",
+            )}
+          </p>
+
+          {shareOpen && project && (
+            <SharePanel projectId={project.id} onClose={() => setShareOpen(false)} />
+          )}
+        </>
       )}
-    </WizardShell>
+    </StudioShell>
   );
 }
 
-function WarningRow({ warning }: { warning: ClearanceWarning }) {
-  const isError = warning.severity === "error";
-  const color = isError ? "#dc2626" : "#d97706";
+function ActionButton({
+  icon,
+  label,
+  onClick,
+  full = false,
+}: {
+  icon: Parameters<typeof Icon>[0]["name"];
+  label: string;
+  onClick: () => void;
+  full?: boolean;
+}) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: 8,
-        padding: 10,
-        borderRadius: 12,
-        background: isError ? "rgba(220,38,38,0.08)" : "rgba(217,119,6,0.08)",
-        border: `1px solid ${isError ? "rgba(220,38,38,0.25)" : "rgba(217,119,6,0.25)"}`,
-      }}
+    <button
+      type="button"
+      onClick={onClick}
+      className={[
+        "flex h-11 items-center justify-center gap-1.5 rounded-pill border border-hairline",
+        "bg-surface-raised text-[13.5px] font-semibold text-ink transition-colors",
+        "hover:border-brand/45 hover:bg-surface",
+        full ? "w-full" : "",
+      ].join(" ")}
     >
-      <MaterialIcon name={isError ? "error" : "warning"} size={18} color={color} style={{ flexShrink: 0, marginTop: 1 }} />
-      <span style={{ fontSize: "calc(13px * var(--pl-fs, 1))", color: "var(--color-on-surface)", lineHeight: 1.4 }}>{warning.message}</span>
-    </div>
+      <Icon name={icon} size={15} />
+      {label}
+    </button>
   );
 }

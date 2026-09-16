@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import BathCraftLogoAnimation from "@/components/BathCraftLogoAnimation";
+import MilagroLogoAnimation from "@/components/MilagroLogoAnimation";
 import Button from "@/components/ui/Button";
 import UserMenu from "@/components/auth/UserMenu";
 import LanguageToggle from "@/components/ui/LanguageToggle";
@@ -63,7 +63,7 @@ export default function Navbar() {
         className="mx-auto flex h-[72px] max-w-[1280px] 2xl:max-w-[1440px] items-center gap-6 px-5 sm:px-6"
       >
         <Link href="#top" aria-label={t("Milagro Universe — home")} className="shrink-0">
-          <BathCraftLogoAnimation variant="navbar" />
+          <MilagroLogoAnimation variant="navbar" />
         </Link>
 
         <ul className="mx-auto hidden items-center gap-8 lg:flex">

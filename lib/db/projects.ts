@@ -275,8 +275,8 @@ const supabaseProjectStore: ProjectStore = {
 
 // ── JSON-file implementation (local development) ─────────────────────────────
 
-const DATA_DIR = process.env.BATHCRAFT_DATA_DIR ?? join(process.cwd(), ".data");
-const PROJECTS_FILE = process.env.BATHCRAFT_PROJECTS_FILE ?? join(DATA_DIR, "projects.json");
+const DATA_DIR = process.env.MILAGRO_DATA_DIR ?? join(process.cwd(), ".data");
+const PROJECTS_FILE = process.env.MILAGRO_PROJECTS_FILE ?? join(DATA_DIR, "projects.json");
 const MEMBERS_FILE = join(DATA_DIR, "project_members.json");
 const INVITES_FILE = join(DATA_DIR, "project_invites.json");
 

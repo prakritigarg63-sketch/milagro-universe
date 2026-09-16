@@ -112,7 +112,7 @@ export default function UserMenu() {
 }
 
 /**
- * Google's picture when there is one, initials on BathCraft blue when there is
+ * Google's picture when there is one, initials on Milagro Universe blue when there is
  * not. The image can 404 or be blocked (Google rate-limits hotlinked avatars),
  * so a load error falls back rather than leaving a broken frame in the navbar.
  */

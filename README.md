@@ -1,6 +1,6 @@
-# BathCraft
+# Milagro Universe
 
-Landing page for BathCraft, a bathroom planning and renovation platform, built
+Landing page for Milagro Universe, a bathroom planning and renovation platform, built
 to match a supplied design reference.
 
 ```bash
@@ -24,7 +24,7 @@ Three things in here are **prototype-grade and must not ship as-is**:
    customer quotes are placeholders with no basis. They are isolated at the top
    of [`lib/content.ts`](lib/content.ts) behind a warning comment. Substantiate
    or delete them.
-2. **The photography is licensed stock, not BathCraft's work** — including the
+2. **The photography is licensed stock, not Milagro Universe's work** — including the
    testimonial thumbnails, which are not the homes of the people quoted. See
    [`public/photos/CREDITS.md`](public/photos/CREDITS.md).
 3. **Brand names are set in type, not logos.** Jaquar, CERA, Hindware, KOHLER
@@ -41,7 +41,7 @@ app/
 lib/content.ts          every repeated string and list
 components/ui/          Button, Icon, SectionHeading, Reveal, Annotation
 components/site/        one file per section
-components/BathCraftLogoAnimation.tsx   the logo, three variants
+components/MilagroLogoAnimation.tsx   the logo, three variants
 scripts/gen-logo-layers.js              slices the logo raster
 docs/logo-geometry.md                   measurements behind that slicing
 ```
@@ -85,9 +85,9 @@ fallback is otherwise invisible until someone switches language.
 **Devanagari is a real font, not a fallback.** Inter contains no Devanagari at
 all, so Hindi would otherwise render in whatever the OS supplies. Noto Sans
 Devanagari is loaded and sits *after* Inter in the stack, so Latin inside Hindi
-copy — BathCraft, Google, KOHLER — still sets in Inter.
+copy — Milagro Universe, Google, KOHLER — still sets in Inter.
 
-Not translated, deliberately: the BathCraft name, the brand names, numerals and
+Not translated, deliberately: the Milagro Universe name, the brand names, numerals and
 units in the prototype figures, and the testimonial customer names.
 
 **TRADEOFF.** The locale lives in `localStorage`, not a cookie or a `/hi/` URL
@@ -113,7 +113,7 @@ components/ui/ThemeToggle.tsx   the sun/moon button in the navbar
 
 Three states, not two. **system** is the default and follows the OS; **light**
 and **dark** are explicit and stored in `localStorage` under
-`bathcraft.theme`. Dark is applied twice on purpose — once behind
+`milagro.theme`. Dark is applied twice on purpose — once behind
 `@media (prefers-color-scheme: dark)` for the system default, once behind
 `[data-theme="dark"]` so an explicit choice outranks the OS.
 
@@ -164,7 +164,7 @@ Not a screenshot — these were each exercised and verified in a browser:
 
 ## Logo
 
-`components/BathCraftLogoAnimation.tsx`, three variants:
+`components/MilagroLogoAnimation.tsx`, three variants:
 
 | Variant | Where | Length |
 | --- | --- | --- |

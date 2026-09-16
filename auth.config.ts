@@ -16,6 +16,14 @@ import Google from "next-auth/providers/google";
  * Routes that require a signed-in user. `/bathrooms` and `/onboarding` exist
  * today; the rest are listed so they are protected from the moment someone
  * builds them, rather than shipping open and being noticed later.
+ *
+ * `/planner` is deliberately NOT here. The studio is the product demo: someone
+ * can measure a room, try layouts and reach a costed plan without an account,
+ * and their work lives in their own browser until they choose to keep it (see
+ * lib/planner/db/guest.ts). Authentication is asked for at the point of value —
+ * save, download, share — not at the door. Nothing under /planner reads another
+ * user's data: the server actions it calls still resolve the user id from the
+ * session and refuse anonymous callers, so the boundary has moved, not gone.
  */
 export const PROTECTED_PREFIXES = [
   "/bathrooms",
@@ -23,7 +31,6 @@ export const PROTECTED_PREFIXES = [
   "/my-plans",
   "/onboarding",
   "/account",
-  "/planner",
 ] as const;
 
 export const isProtected = (pathname: string) =>
@@ -34,7 +41,7 @@ export const authConfig = {
     Google({
       /**
        * The minimum for authentication and nothing else. No Gmail, Drive or
-       * Calendar — asking for a scope BathCraft does not use costs the user a
+       * Calendar — asking for a scope Milagro Universe does not use costs the user a
        * scarier consent screen and costs us a Google verification review.
        */
       authorization: {
@@ -77,7 +84,7 @@ export const authConfig = {
     },
 
     /**
-     * Only ever redirect within BathCraft. An open redirect here would let a
+     * Only ever redirect within Milagro Universe. An open redirect here would let a
      * crafted `callbackUrl` bounce a freshly-authenticated user to an attacker's
      * page with the referrer intact.
      */

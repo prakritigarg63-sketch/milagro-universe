@@ -18,7 +18,7 @@
  */
 export type Locale = "en" | "hi";
 
-export const LOCALE_KEY = "bathcraft.locale";
+export const LOCALE_KEY = "milagro.locale";
 
 /**
  * Runs before first paint, inlined into <head>. Sets the `lang` attribute so

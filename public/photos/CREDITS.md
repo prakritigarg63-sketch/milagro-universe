@@ -9,9 +9,9 @@ not sell unmodified copies or build a competing photo service. Nothing on this
 page does either.
 
 **Before production:** confirm the licence still reads that way for each photo,
-or replace these with BathCraft's own shoot. They were chosen to hold one
+or replace these with Milagro Universe's own shoot. They were chosen to hold one
 aesthetic — warm neutral, stone, walnut, matte black fittings, warm light,
-minimal clutter — not because they depict BathCraft projects. They do not.
+minimal clutter — not because they depict Milagro Universe projects. They do not.
 
 | File | Unsplash photo id | Used by |
 | --- | --- | --- |

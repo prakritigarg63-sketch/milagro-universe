@@ -1,10 +1,10 @@
--- BathCraft: users and authentication providers.
+-- Milagro Universe: users and authentication providers.
 --
 -- Run this once in the Supabase SQL editor (Dashboard -> SQL Editor -> New query).
 -- It is idempotent, so re-running it is safe.
 --
 -- Mirrors lib/db/types.ts. Providers are a separate table from users on
--- purpose: one BathCraft account can hold a password credential AND a Google
+-- purpose: one Milagro Universe account can hold a password credential AND a Google
 -- identity, and signing in either way must resolve to the same user id and the
 -- same bathrooms.
 

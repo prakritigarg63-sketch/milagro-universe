@@ -10,7 +10,7 @@
 export const LOCKUP_W = 846;
 export const LOCKUP_H = 272;
 
-/** Shared with BathCraftLogoAnimation so the animated and static marks match. */
+/** Shared with MilagroLogoAnimation so the animated and static marks match. */
 export const WORDMARK = {
   x: 335,
   fontSize: 118,

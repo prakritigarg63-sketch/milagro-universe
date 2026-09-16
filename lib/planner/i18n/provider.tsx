@@ -4,7 +4,7 @@ import { createContext, useContext, useSyncExternalStore } from "react";
 import type { Language } from "@/lib/planner/types";
 import { dictionaries, type Dictionary } from "./dictionaries";
 
-const STORAGE_KEY = "bathcraft.lang";
+const STORAGE_KEY = "milagro.lang";
 
 let current: Language | null = null;
 const listeners = new Set<() => void>();

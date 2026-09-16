@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   "From blueprint to BathCraft" — logo animation timeline.
+   "From blueprint to Milagro Universe" — logo animation timeline.
 
    Every duration and delay is written as calc(var(--d) * Nms). `--d` is the one
    knob, and no keyframe is ever re-authored to change pace:
@@ -54,13 +54,18 @@
 }
 
 .navbar .stage {
-  /* 4850ms x 0.22 = ~1.07s. The header was at 1.68 (~8.1s), which left the
-     page with no logo for a second and no wordmark for five — a navbar mark
-     has to be present almost immediately.
+  /* 4850ms x 0.88 = ~4.27s. Quarter speed, asked for deliberately.
+
+     TRADEOFF, recorded because it was once fixed the other way: this was 0.22
+     (~1.07s) precisely because the header had been at 1.68 (~8.1s), which left
+     the page with no logo for a second and no wordmark for five. At 0.88 the
+     mark takes about 4s to finish drawing, so the navbar is part-drawn for the
+     first few seconds of every cold load. If that reads as broken rather than
+     as deliberate, 0.22 is the value to come back to.
      Still a plain number, never calc() — the component parseFloats this back
      to set its own completion timer, and calc() would resolve to a token
      stream rather than a number and silently desync it. */
-  --d: 0.22;
+  --d: 0.88;
   padding: 0;
 }
 

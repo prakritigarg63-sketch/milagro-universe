@@ -1,4 +1,4 @@
--- BathCraft: project sharing (two-sided co-edit).
+-- Milagro Universe: project sharing (two-sided co-edit).
 --
 -- Run once via `npm run db:migrate` or the Supabase SQL editor. Idempotent.
 --

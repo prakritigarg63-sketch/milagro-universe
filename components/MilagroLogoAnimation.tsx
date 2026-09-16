@@ -4,10 +4,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useT } from "@/lib/i18n/useT";
 import { useResolvedTheme } from "@/lib/useTheme";
 import BrandLockup, { WORDMARK, BRAND_SLATE, BRAND_BLUE, Wordmark } from "@/components/brand/BrandLockup";
-import styles from "./BathCraftLogoAnimation.module.css";
+import styles from "./MilagroLogoAnimation.module.css";
 
 /**
  * "From blueprint to Milagro Universe" — the hero logo animation.
+ *
+ * NAME RENAMED, ARTWORK NOT. This file was BathCraftLogoAnimation, and the
+ * rename was only a rename: the PNGs it loads out of /logo are still the
+ * BathCraft mark — logo-full, wordmark-bath, wordmark-craft and the icon
+ * layers. None of it is Milagro artwork yet. Swapping the assets is a separate
+ * job; until it happens the navbar draws the old logo under the new name.
  *
  * The supplied logo is a flat raster, so nothing here draws the mark. Instead
  * `scripts/gen-logo-layers.js` slices the original PNG into four disjoint,
@@ -43,7 +49,7 @@ type Props = {
   variant?: "navbar" | "inline" | "splash";
 };
 
-export default function BathCraftLogoAnimation({ variant = "inline" }: Props) {
+export default function MilagroLogoAnimation({ variant = "inline" }: Props) {
   const t = useT();
   const isNavbar = variant === "navbar";
 

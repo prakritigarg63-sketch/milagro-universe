@@ -53,17 +53,6 @@ function placementToWall(placement: Placement, door: Wall, fallback: Wall): Wall
   return fallback;
 }
 
-function firstFreePos(occupied: Interval[], wallLen: number, need: number): number | null {
-  const sorted = [...occupied].sort((a, b) => a.start - b.start);
-  let cursor = 0;
-  for (const iv of sorted) {
-    if (iv.start - cursor >= need) return cursor;
-    cursor = Math.max(cursor, iv.end);
-  }
-  if (wallLen - cursor >= need) return cursor;
-  return null;
-}
-
 function toBox(type: FixtureType, wall: Wall, pos: number, fp: Footprint, room: Room): PlacedFixture {
   const L = room.lengthInches;
   const W = room.widthInches;
@@ -202,6 +191,53 @@ function checkDoorSwing(placed: PlacedFixture[], room: Room, warnings: Clearance
   }
 }
 
+/** Do two axis-aligned boxes share any area? */
+function boxesOverlap(a: PlacedFixture, b: PlacedFixture): boolean {
+  return (
+    a.x < b.x + b.widthInches &&
+    a.x + a.widthInches > b.x &&
+    a.y < b.y + b.depthInches &&
+    a.y + a.depthInches > b.y
+  );
+}
+
+/**
+ * First position along `wall` where this fixture fits without touching
+ * anything already placed.
+ *
+ * Packing used to be tracked per wall as 1-D intervals, which cannot see a
+ * corner: the start of the back wall and the start of the left wall are the
+ * same square foot of floor, so a WC and a basin could both be given it and
+ * the plan came back with no warnings. This tests the actual box against every
+ * box already placed, on any wall, which is the only way corners are honest.
+ *
+ * `blocked` still carries same-wall exclusions that are not fixtures — the
+ * door opening, which has no depth to collide with.
+ */
+function firstFreePosition(
+  wall: Wall,
+  fp: Footprint,
+  room: Room,
+  placed: PlacedFixture[],
+  blocked: Interval[],
+): number | null {
+  const wallLen = wallLength(wall, room);
+  const span = fp.along;
+  if (span > wallLen) return null;
+
+  // One-inch steps: fine enough that a fixture never looks arbitrarily offset,
+  // coarse enough that this stays trivial for a room-sized search.
+  for (let pos = 0; pos <= Math.floor(wallLen - span); pos += 1) {
+    const clashesBlocked = blocked.some(
+      (iv) => pos < iv.end && pos + span > iv.start,
+    );
+    if (clashesBlocked) continue;
+    const candidate = toBox("wc", wall, pos, fp, room);
+    if (!placed.some((other) => boxesOverlap(candidate, other))) return pos;
+  }
+  return null;
+}
+
 function archetypeName(room: Room, count: number): string {
   const ratio = room.lengthInches / Math.max(1, room.widthInches);
   const shape = ratio >= 1.5 ? "galley" : ratio <= 1.15 ? "square" : "standard";
@@ -229,7 +265,7 @@ export function generateLayout(room: Room, fixtures: FixtureChoice[]): Generated
 
     let chosen: { wall: Wall; pos: number } | null = null;
     for (const wall of tryOrder) {
-      const pos = firstFreePos(occupied[wall], wallLength(wall, room), fp.along);
+      const pos = firstFreePosition(wall, fp, room, placed, occupied[wall]);
       if (pos !== null) {
         chosen = { wall, pos };
         break;

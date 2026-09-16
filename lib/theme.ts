@@ -9,7 +9,7 @@
 export type Theme = "system" | "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
 
-export const THEME_KEY = "bathcraft.theme";
+export const THEME_KEY = "milagro.theme";
 
 /**
  * Runs before first paint, inlined into <head>. Kept as a string because it

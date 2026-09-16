@@ -1,5 +1,5 @@
 /**
- * Every event name BathCraft sends to Mixpanel, in one place.
+ * Every event name Milagro Universe sends to Mixpanel, in one place.
  *
  * Event names are a schema. Once a name is in Mixpanel it is effectively
  * permanent — reports, funnels and saved boards all key off the string — so

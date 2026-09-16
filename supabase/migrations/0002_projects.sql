@@ -1,4 +1,4 @@
--- BathCraft: planner projects.
+-- Milagro Universe: planner projects.
 --
 -- Run this once in the Supabase SQL editor, or via `npm run db:migrate`.
 -- Idempotent, so re-running is safe.

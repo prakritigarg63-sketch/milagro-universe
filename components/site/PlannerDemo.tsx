@@ -103,7 +103,9 @@ export default function PlannerDemo() {
             "Drag, drop and explore different layouts, fittings, tiles and colours before you start building.",
           )}
         </p>
-        <Button href="#how-it-works" variant="white" size="md" withArrow className="mt-7 self-start">
+        {/* The entry point to the studio. This sits on a photograph, so it keeps
+            the white-on-photo variant rather than the clay used inside the planner. */}
+        <Button href="/planner" variant="white" size="md" withArrow className="mt-7 self-start">
           {tr("Try the Planner")}
         </Button>
       </div>

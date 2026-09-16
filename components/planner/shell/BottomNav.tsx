@@ -7,9 +7,9 @@ import { MaterialIcon } from "@/components/planner/ui/MaterialIcon";
 
 export const PLANNER_NAV = [
   { key: "navBathrooms", icon: "bathtub", href: "/bathrooms" },
-  { key: "navPlanner", icon: "architecture", href: "/planner/space" },
-  { key: "navGuides", icon: "menu_book", href: "/planner/guides" },
-  { key: "navDocs", icon: "folder_shared", href: "/planner/docs" },
+  { key: "navPlanner", icon: "architecture", href: "/planner/classic/space" },
+  { key: "navGuides", icon: "menu_book", href: "/planner/classic/guides" },
+  { key: "navDocs", icon: "folder_shared", href: "/planner/classic/docs" },
 ] as const;
 
 /** "Planner" stays active across every wizard step; guides and docs are their
@@ -17,9 +17,9 @@ export const PLANNER_NAV = [
 export function isNavActive(pathname: string, item: (typeof PLANNER_NAV)[number]) {
   if (item.key === "navPlanner") {
     return (
-      pathname.startsWith("/planner") &&
-      !pathname.startsWith("/planner/guides") &&
-      !pathname.startsWith("/planner/docs")
+      pathname.startsWith("/planner/classic") &&
+      !pathname.startsWith("/planner/classic/guides") &&
+      !pathname.startsWith("/planner/classic/docs")
     );
   }
   return pathname.startsWith(item.href);

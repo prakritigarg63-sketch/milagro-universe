@@ -1,8 +1,8 @@
 /**
- * The BathCraft user model.
+ * The Milagro Universe user model.
  *
  * Authentication providers are modelled *separately* from the user on purpose.
- * One BathCraft account can carry a password credential and a Google identity
+ * One Milagro Universe account can carry a password credential and a Google identity
  * at the same time, so signing in either way lands on the same `userId` and the
  * same bathrooms. Collapsing the two into one row would make linking impossible
  * without rewriting identity, which is how account-takeover bugs get written.

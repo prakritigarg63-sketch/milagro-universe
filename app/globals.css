@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   BathCraft design tokens.
+   Milagro Universe design tokens.
 
    Blue and slate are sampled from the supplied logo raster; the rest of the
    scale is the landing-page reference. Colour is never decorative here:
@@ -22,46 +22,74 @@
 @theme {
   /* Action: filled primary buttons only, in warm brass (echoes premium
      fittings). Brand cyan stays for links, focus, selection and progress. */
-  --color-action: #8a5a2b;
-  --color-action-dark: #6f4720;
+  --color-action: #a66a32;
+  --color-action-dark: #8a5527;
   --color-on-action: #ffffff;
+
+  /* Warm clay — the studio CTA colour. Distinct from --color-action by a few
+     degrees of warmth; kept because every planner CTA is built on it. */
+  --color-clay: #168aad;
+  --color-clay-dark: #11708d;
+  --color-on-clay: #ffffff;
 
   /* Signed-in ground: neutral stone tinted toward the logo slate, with a faint
      architect's grid (see the bg-blueprint utility). Blue is kept for actions. */
-  --color-blueprint-ground: color-mix(in srgb, #4a5c72 5%, #f7f7f6);
-  --color-blueprint-fine: rgb(74 92 114 / 0.045);
-  --color-blueprint-major: rgb(74 92 114 / 0.075);
+  --color-blueprint-ground: color-mix(in srgb, #445568 4%, #faf8f4);
+  --color-blueprint-fine: rgb(68 85 104 / 0.045);
+  --color-blueprint-major: rgb(68 85 104 / 0.075);
+
+  /* ── RAW PALETTE — "Architectural Spa" ──────────────────────────────────
+     Named for what they are. Components reach for the semantic tokens below,
+     not for these; that is what makes a theme swap a change of values rather
+     than a repaint. The ratio the palette is built to hold is roughly 70% warm
+     neutrals, 20% navy and blue, 10% bronze — bronze stops reading as premium
+     the moment it becomes ordinary. */
+  --color-navy: #102a43;
+  --color-mineral: #168aad;
+  --color-aqua: #35b6d4;
+  --color-bronze: #a66a32;
+  --color-ivory: #faf8f4;
+  --color-mist: #eef6f8;
+  --color-sand: #f2ece4;
+  --color-slate: #445568;
+  --color-stone: #dce3e6;
+  --color-midnight: #0b1824;
 
   /* The page, and anything raised off it. In light these are both white;
      splitting them is what makes a dark theme possible without a repaint. */
-  --color-surface: #ffffff;
+  --color-surface: #faf8f4;
   --color-surface-raised: #ffffff;
 
-  --color-ink: #102b4e;
-  --color-ink-soft: #1d3a61;
-  --color-body: #42566f;
+  --color-ink: #102a43;
+  --color-ink-soft: #1c3a55;
+  --color-body: #445568;
   /* Soft copy and brand text both sit on white, wash and wash-deep; every
      value here clears WCAG AA 4.5:1 on all three (see the audit, 2026-09-15). */
-  --color-body-soft: #5a6c83;
+  --color-body-soft: #6b7a8c;
 
-  --color-brand: #0672a3;
-  --color-brand-dark: #055a82;
+  --color-brand: #168aad;
+  --color-brand-dark: #11708d;
   /* Foreground for anything sitting ON the brand colour. */
   --color-on-brand: #ffffff;
-  --color-brand-soft: #7cc9e8;
-  --color-wash: #f3fafe;
-  --color-wash-deep: #e4f2fb;
-  --color-hairline: #e3ebf2;
-  --color-field: #e5edf4;
+  /* Aqua. Selection and highlight only — the loudest thing in the palette. */
+  --color-brand-soft: #35b6d4;
+  --color-wash: #eef6f8;
+  --color-wash-deep: #e3eff3;
+  --color-hairline: #dce3e6;
+  /* Inputs are white and defined by their border, per the reference. */
+  --color-field: #ffffff;
 
   /* Validation. Soft, never alarming -- the reference asks for a quiet red. */
-  --color-danger: #d2554b;
-  --color-danger-dark: #a33c34;
+  --color-danger: #b0503c;
+  --color-danger-dark: #8e3f2f;
 
   --font-sans:
     var(--font-hanken), var(--font-devanagari), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", sans-serif;
   --font-hand: var(--font-caveat), "Segoe Script", cursive;
+  /* Editorial serif for headlines. Already loaded for the planner; promoted to
+     a token so the hero and section headings can share one face. */
+  --font-serif: var(--font-marcellus), var(--font-devanagari), Georgia, serif;
 
   --radius-card: 14px;
   --radius-pill: 999px;
@@ -89,36 +117,54 @@
     @media (prefers-color-scheme: dark) {
       color-scheme: dark;
 
-      --color-action: #c8955c;
-      --color-action-dark: #d9a970;
+      --color-navy: #102a43;
+      --color-mineral: #168aad;
+      --color-aqua: #35b6d4;
+      --color-bronze: #a66a32;
+      /* The warm neutrals go to warm darks, not to grey. A dark theme that is
+         only the light one with its lightness flipped loses the warmth that
+         made the light one feel like a room. */
+      --color-ivory: #0b1824;
+      --color-mist: #102a43;
+      --color-sand: #132c44;
+      --color-slate: #9fb3c4;
+      --color-stone: #1e3245;
+      --color-midnight: #0b1824;
+
+      --color-action: #c08a52;
+      --color-action-dark: #d3a06a;
       --color-on-action: #1a1208;
 
-      --color-blueprint-ground: #0c1b2f;
+      --color-clay: #35b6d4;
+      --color-clay-dark: #5cc8e0;
+      --color-on-clay: #06141f;
+
+      --color-blueprint-ground: #0b1824;
       --color-blueprint-fine: rgb(255 255 255 / 0.025);
       --color-blueprint-major: rgb(255 255 255 / 0.045);
 
-      --color-surface: #0c1b2f;
-      --color-surface-raised: #13273f;
+      --color-surface: #0b1824;
+      --color-surface-raised: #102a43;
 
-      --color-ink: #e8f1f8;
-      --color-ink-soft: #c6d8e8;
-      --color-body: #a6bbd0;
-      --color-body-soft: #879cb2;
+      --color-ink: #faf8f4;
+      --color-ink-soft: #dbe5ed;
+      --color-body: #9fb3c4;
+      --color-body-soft: #7d92a5;
 
-      /* #078CC8 is too dark to read on a dark ground; lift it and let the
-         hover state go lighter rather than darker. */
-      --color-brand: #3fa9dd;
-      --color-brand-dark: #63bee9;
+      /* Mineral blue is too dark to read on midnight, so aqua is the
+         interactive colour here and the hover goes lighter, not darker. */
+      --color-brand: #35b6d4;
+      --color-brand-dark: #5cc8e0;
       --color-on-brand: #06141f;
-      --color-brand-soft: #1e6c95;
+      --color-brand-soft: #1b5f76;
 
-      --color-wash: #13273f;
-      --color-wash-deep: #1b3250;
-      --color-hairline: #22374f;
-      --color-field: #2b4159;
+      --color-wash: #102a43;
+      --color-wash-deep: #16354f;
+      --color-hairline: #1e3245;
+      --color-field: #102a43;
 
-      --color-danger: #e8776d;
-      --color-danger-dark: #f5b3ab;
+      --color-danger: #d98570;
+      --color-danger-dark: #eaa995;
 
       --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.30), 0 8px 24px rgb(0 0 0 / 0.36);
       --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.34), 0 18px 40px rgb(0 0 0 / 0.46);
@@ -128,34 +174,54 @@
   :root[data-theme="dark"] {
     color-scheme: dark;
 
-    --color-action: #c8955c;
-    --color-action-dark: #d9a970;
+    --color-navy: #102a43;
+    --color-mineral: #168aad;
+    --color-aqua: #35b6d4;
+    --color-bronze: #a66a32;
+    /* The warm neutrals go to warm darks, not to grey. A dark theme that is
+       only the light one with its lightness flipped loses the warmth that
+       made the light one feel like a room. */
+    --color-ivory: #0b1824;
+    --color-mist: #102a43;
+    --color-sand: #132c44;
+    --color-slate: #9fb3c4;
+    --color-stone: #1e3245;
+    --color-midnight: #0b1824;
+
+    --color-action: #c08a52;
+    --color-action-dark: #d3a06a;
     --color-on-action: #1a1208;
 
-    --color-blueprint-ground: #0c1b2f;
+    --color-clay: #35b6d4;
+    --color-clay-dark: #5cc8e0;
+    --color-on-clay: #06141f;
+
+    --color-blueprint-ground: #0b1824;
     --color-blueprint-fine: rgb(255 255 255 / 0.025);
     --color-blueprint-major: rgb(255 255 255 / 0.045);
 
-    --color-surface: #0c1b2f;
-    --color-surface-raised: #13273f;
+    --color-surface: #0b1824;
+    --color-surface-raised: #102a43;
 
-    --color-ink: #e8f1f8;
-    --color-ink-soft: #c6d8e8;
-    --color-body: #a6bbd0;
-    --color-body-soft: #879cb2;
+    --color-ink: #faf8f4;
+    --color-ink-soft: #dbe5ed;
+    --color-body: #9fb3c4;
+    --color-body-soft: #7d92a5;
 
-    --color-brand: #3fa9dd;
-    --color-brand-dark: #63bee9;
+    /* Mineral blue is too dark to read on midnight, so aqua is the
+       interactive colour here and the hover goes lighter, not darker. */
+    --color-brand: #35b6d4;
+    --color-brand-dark: #5cc8e0;
     --color-on-brand: #06141f;
-    --color-brand-soft: #1e6c95;
+    --color-brand-soft: #1b5f76;
 
-    --color-wash: #13273f;
-    --color-wash-deep: #1b3250;
-    --color-hairline: #22374f;
-    --color-field: #2b4159;
+    --color-wash: #102a43;
+    --color-wash-deep: #16354f;
+    --color-hairline: #1e3245;
+    --color-field: #102a43;
 
-    --color-danger: #e8776d;
-    --color-danger-dark: #f5b3ab;
+    --color-danger: #d98570;
+    --color-danger-dark: #eaa995;
 
     --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.30), 0 8px 24px rgb(0 0 0 / 0.36);
     --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.34), 0 18px 40px rgb(0 0 0 / 0.46);
@@ -184,18 +250,25 @@
 
   --color-surface: #ffffff;
   --color-surface-raised: #ffffff;
-  --color-ink: #102b4e;
-  --color-ink-soft: #1d3a61;
-  --color-body: #42566f;
-  --color-body-soft: #5a6c83;
-  --color-brand: #0672a3;
-  --color-brand-dark: #055a82;
-  --color-brand-soft: #7cc9e8;
+  --color-ivory: #faf8f4;
+  --color-mist: #eef6f8;
+  --color-sand: #f2ece4;
+  --color-stone: #dce3e6;
+  --color-ink: #102a43;
+  --color-ink-soft: #1c3a55;
+  --color-body: #445568;
+  --color-body-soft: #6b7a8c;
+  --color-brand: #168aad;
+  --color-brand-dark: #11708d;
+  --color-brand-soft: #35b6d4;
   --color-on-brand: #ffffff;
-  --color-wash: #f3fafe;
-  --color-wash-deep: #e4f2fb;
-  --color-hairline: #e3ebf2;
-  --color-field: #e5edf4;
+  --color-clay: #168aad;
+  --color-clay-dark: #11708d;
+  --color-on-clay: #ffffff;
+  --color-wash: #eef6f8;
+  --color-wash-deep: #e3eff3;
+  --color-hairline: #dce3e6;
+  --color-field: #ffffff;
 }
 
 html {
@@ -387,7 +460,7 @@ body {
 @layer base {
   h1,
   h2 {
-    font-family: var(--font-marcellus), var(--font-devanagari), var(--font-hanken), serif;
+    font-family: var(--font-serif);
     font-synthesis-weight: none;
     letter-spacing: -0.01em;
   }
@@ -405,59 +478,89 @@ body {
   /* Re-resolve inherited text colour inside the theme; body's was computed
      from the site palette before these tokens applied. */
   color: var(--color-body);
-  --color-brand: var(--color-action);
-  --color-brand-dark: var(--color-action-dark);
-  --color-on-brand: var(--color-on-action);
-  --color-brand-soft: color-mix(in srgb, var(--color-action) 40%, #ffffff);
 
-  --color-surface: #ffffff;
+  /* The planner used to run a palette of its own — warm greys, and brand
+     aliased to the bronze action colour, which turned every control in it
+     bronze. That is most of why the studio read as a different product from
+     the site. It now inherits the same tokens; the only thing it changes is
+     ground, because a plan needs a white canvas to sit on.
+
+     Brand stays mineral blue here on purpose. Inside the planner bronze is
+     reserved for Save Project and Finish Plan — the two that commit. */
+  --color-surface: #faf8f4;
   --color-surface-raised: #ffffff;
-  --color-ink: #1d2024;
-  --color-ink-soft: #2e3237;
-  --color-body: #4e545a;
-  --color-body-soft: #62686e;
-  --color-wash: #f3f3f2;
-  --color-wash-deep: #e9e9e7;
-  --color-hairline: #e3e3e1;
-  --color-field: #e6e6e4;
+  --color-ink: #102a43;
+  --color-ink-soft: #1c3a55;
+  --color-body: #445568;
+  --color-body-soft: #6b7a8c;
+  --color-wash: #eef6f8;
+  --color-wash-deep: #e3eff3;
+  --color-hairline: #dce3e6;
+  --color-field: #ffffff;
 
-  --color-blueprint-ground: #efefed;
-  --color-blueprint-fine: rgb(40 36 30 / 0.045);
-  --color-blueprint-major: rgb(40 36 30 / 0.075);
+  --color-blueprint-ground: color-mix(in srgb, #445568 4%, #faf8f4);
+  --color-blueprint-fine: rgb(68 85 104 / 0.045);
+  --color-blueprint-major: rgb(68 85 104 / 0.075);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .app-theme {
-    --color-brand-soft: color-mix(in srgb, var(--color-action) 45%, #121416);
-    --color-surface: #121416;
-    --color-surface-raised: #1b1e21;
-    --color-ink: #eceff1;
-    --color-ink-soft: #d0d4d7;
-    --color-body: #b4b9bd;
-    --color-body-soft: #989ea3;
-    --color-wash: #1f2225;
-    --color-wash-deep: #272b2f;
-    --color-hairline: #2d3135;
-    --color-field: #353a3f;
-    --color-blueprint-ground: #121416;
+    --color-brand-soft: #1b5f76;
+    --color-surface: #0b1824;
+    --color-surface-raised: #102a43;
+    --color-ink: #faf8f4;
+    --color-ink-soft: #dbe5ed;
+    --color-body: #9fb3c4;
+    --color-body-soft: #7d92a5;
+    --color-wash: #102a43;
+    --color-wash-deep: #16354f;
+    --color-hairline: #1e3245;
+    --color-field: #102a43;
+    --color-blueprint-ground: #0b1824;
     --color-blueprint-fine: rgb(255 255 255 / 0.025);
     --color-blueprint-major: rgb(255 255 255 / 0.045);
   }
 }
 
 :root[data-theme="dark"] .app-theme {
-  --color-brand-soft: color-mix(in srgb, var(--color-action) 45%, #121416);
-  --color-surface: #121416;
-  --color-surface-raised: #1b1e21;
-  --color-ink: #eceff1;
-  --color-ink-soft: #d0d4d7;
-  --color-body: #b4b9bd;
-  --color-body-soft: #989ea3;
-  --color-wash: #1f2225;
-  --color-wash-deep: #272b2f;
-  --color-hairline: #2d3135;
-  --color-field: #353a3f;
-  --color-blueprint-ground: #121416;
+  --color-brand-soft: #1b5f76;
+  --color-surface: #0b1824;
+  --color-surface-raised: #102a43;
+  --color-ink: #faf8f4;
+  --color-ink-soft: #dbe5ed;
+  --color-body: #9fb3c4;
+  --color-body-soft: #7d92a5;
+  --color-wash: #102a43;
+  --color-wash-deep: #16354f;
+  --color-hairline: #1e3245;
+  --color-field: #102a43;
+  --color-blueprint-ground: #0b1824;
   --color-blueprint-fine: rgb(255 255 255 / 0.025);
   --color-blueprint-major: rgb(255 255 255 / 0.045);
+}
+
+/* ---------------------------------------------------------------------------
+   Touch targets.
+
+   A fingertip needs about 44px to hit something reliably; a mouse pointer does
+   not, and forcing 44px everywhere would leave desktop controls looking
+   inflated. `pointer: coarse` is the honest split — it asks what the person is
+   actually pointing with rather than guessing from screen width, so a touch
+   laptop gets the larger targets too and a narrow desktop window does not.
+
+   min-height beats a smaller fixed height, so this lifts the h-9 and h-10
+   controls across the planner and the site without touching either.
+--------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a[class*="rounded-pill"],
+  summary {
+    min-height: 44px;
+  }
+
+  /* Square icon buttons need the width too, or they become tall slivers. */
+  button[aria-label]:not([class*="w-full"]):not([class*="flex-1"]) {
+    min-width: 44px;
+  }
 }

@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
 import { normaliseEmail, store } from "@/lib/db/store";
-import type { OnboardingAnswers, User as BathCraftUser } from "@/lib/db/types";
+import type { OnboardingAnswers, User as MilagroUser } from "@/lib/db/types";
 
 /**
  * The full Auth.js configuration — Node runtime only.
@@ -12,7 +12,7 @@ import type { OnboardingAnswers, User as BathCraftUser } from "@/lib/db/types";
  * imported from middleware. `auth.config.ts` holds the Edge-safe half.
  */
 
-/** Splits Google's single `name` claim into the two fields BathCraft stores. */
+/** Splits Google's single `name` claim into the two fields Milagro Universe stores. */
 function splitName(name: string | null | undefined, email: string) {
   const raw = (name ?? "").trim();
   if (raw) {
@@ -23,8 +23,8 @@ function splitName(name: string | null | undefined, email: string) {
   return { firstName: local.charAt(0).toUpperCase() + local.slice(1), lastName: "" };
 }
 
-/** Copies the BathCraft record onto the JWT. One place, so the shape cannot drift. */
-function applyUser(token: Record<string, unknown>, user: BathCraftUser) {
+/** Copies the Milagro Universe record onto the JWT. One place, so the shape cannot drift. */
+function applyUser(token: Record<string, unknown>, user: MilagroUser) {
   token.uid = user.id;
   token.email = user.email;
   token.firstName = user.firstName;
@@ -41,7 +41,7 @@ function applyUser(token: Record<string, unknown>, user: BathCraftUser) {
  * and a wrong password take the same time to fail. Without it the response time
  * tells an attacker which addresses are registered.
  */
-const DUMMY_HASH_PROMISE = hashPassword("bathcraft-timing-equaliser");
+const DUMMY_HASH_PROMISE = hashPassword("milagro-timing-equaliser");
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -55,7 +55,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
      * side by side is how "signed in but not really" bugs happen.
      */
     Credentials({
-      name: "BathCraft",
+      name: "Milagro Universe",
       credentials: { email: {}, password: {} },
       async authorize(raw) {
         const email = typeof raw?.email === "string" ? normaliseEmail(raw.email) : "";
@@ -87,7 +87,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     ...authConfig.callbacks,
 
     /**
-     * Decides whether a Google identity may become a BathCraft session, and is
+     * Decides whether a Google identity may become a Milagro Universe session, and is
      * the only place a user is created from Google. Returning a string here
      * redirects instead of signing in.
      */
@@ -117,7 +117,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return true;
       }
 
-      // 2. The address already belongs to a BathCraft account — almost always a
+      // 2. The address already belongs to a Milagro Universe account — almost always a
       //    password account. Linking on a matching email alone would mean anyone
       //    who can make Google assert an address inherits that account, so we
       //    require the person to already be signed in to it.
@@ -146,7 +146,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     /**
-     * The JWT is the session. It carries the BathCraft user id — never Google's
+     * The JWT is the session. It carries the Milagro Universe user id — never Google's
      * — so that a linked account resolves to the same bathrooms either way.
      */
     async jwt({ token, user, account, trigger }) {

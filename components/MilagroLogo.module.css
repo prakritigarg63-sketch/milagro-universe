@@ -1,0 +1,164 @@
+/* ---------------------------------------------------------------------------
+   The Milagro Universe lockup, and its reveal.
+
+   The mark draws itself: the icon's strokes are laid down first, then the
+   wordmark's letters, one at a time. Nothing here redraws the artwork — the
+   icon is real stroked geometry from lib/logo-icon.ts, and the letters are the
+   supplied raster revealed through a mask whose stroke sweeps down each glyph's
+   centreline. The pixels on screen are always the supplied pixels.
+
+   The resting frame deliberately does not depend on those masks. An unmasked
+   copy of the wordmark fades in *underneath* the drawn one near the end:
+   anything a sweep under-covers fills in, the already-drawn ink never
+   cross-fades, and if masking fails on some engine the worst case is a logo
+   that appears without being drawn.
+
+   `--ms` in the component is the one number that must stay in step with the
+   timings here.
+--------------------------------------------------------------------------- */
+
+.wrap {
+  display: block;
+
+  --draw: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --settle: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* One icon stroke, and one letter's sweep. */
+  /* The reveal is the brand's one moment of motion; at 380ms it was over
+     before the eye reached it. Slow enough to read as drawing, short
+     enough that nobody waits for the page. */
+  --icon-stroke: 620ms;
+  --glyph-stroke: 520ms;
+}
+
+.stage {
+  display: block;
+  height: 100%;
+}
+
+.svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  /* Reserves the lockup's exact box before anything animates — no layout shift. */
+  overflow: visible;
+}
+
+.stage[data-phase="idle"] {
+  opacity: 0;
+}
+
+/* --- the icon ------------------------------------------------------------ */
+
+.iconPath {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* pathLength="1" on every part, so the dash animation is a plain 1 -> 0
+   whatever the real length of that stroke. */
+.stage[data-phase="playing"] .iconPath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mu-draw var(--icon-stroke) var(--draw) forwards;
+  animation-delay: calc(var(--i) * 170ms);
+}
+
+/* --- the letters --------------------------------------------------------- */
+
+.drawPath {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: butt;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.stage[data-phase="playing"] .drawPath {
+  animation: mu-draw var(--glyph-stroke) var(--draw) forwards;
+  /* The letters start once the icon's last stroke is under way, not after it
+     finishes — the overlap is what makes it read as one gesture. */
+  animation-delay: calc(760ms + var(--i) * 58ms);
+}
+
+/* Belt and braces: the end states are written as plain rules too, so a browser
+   that never runs the animation still lands on an open mask rather than a
+   permanently blank logo. */
+.stage[data-phase="done"] .drawPath {
+  stroke-dashoffset: 0;
+}
+
+@keyframes mu-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --- the resting copy ---------------------------------------------------- */
+
+.settled {
+  opacity: 0;
+}
+
+.stage[data-phase="playing"] .settled {
+  animation: mu-fade 320ms linear 1900ms forwards;
+}
+
+.stage[data-phase="done"] .settled {
+  opacity: 1;
+}
+
+@keyframes mu-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- settle -------------------------------------------------------------- */
+
+/* A 2.8% scale-up across the sequence — small enough to read as the mark
+   arriving rather than as a zoom. */
+.mark {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+.stage[data-phase="playing"] .mark {
+  animation: mu-settle 1300ms var(--settle) forwards;
+}
+
+@keyframes mu-settle {
+  from {
+    transform: scale(0.972);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* --- reduced motion ------------------------------------------------------ */
+
+/* The state change still happens — something did just arrive, and hiding that
+   is its own kind of confusing — but as a plain fade: nothing drawn, nothing
+   scaled. */
+@media (prefers-reduced-motion: reduce) {
+  .stage[data-phase="playing"] .iconPath {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  .stage[data-phase="playing"] .drawPath {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .stage[data-phase="playing"] .mark {
+    animation: none;
+  }
+
+  .stage[data-phase="playing"] .settled {
+    animation: mu-fade 240ms linear forwards;
+  }
+}

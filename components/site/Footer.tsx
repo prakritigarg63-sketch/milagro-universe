@@ -10,7 +10,7 @@ import { useResolvedTheme } from "@/lib/useTheme";
 /** White footer. The logo here is the static lockup — it has already animated. */
 export default function Footer() {
   const t = useT();
-  // The supplied rasters have no alpha — see BathCraftLogoAnimation.
+  // The supplied rasters have no alpha — see MilagroLogoAnimation.
   const dark = useResolvedTheme() === "dark";
   return (
     <footer className="border-t border-hairline bg-surface">

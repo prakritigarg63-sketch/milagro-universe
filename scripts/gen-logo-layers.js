@@ -1,5 +1,5 @@
 /**
- * Slices the supplied BathCraft logo PNG into disjoint, pixel-exact layers.
+ * Slices the supplied Milagro Universe logo PNG into disjoint, pixel-exact layers.
  *
  * Why: the animation draws the mark element-by-element, but the only asset we
  * have is a flat raster. Every non-white pixel is assigned to exactly one layer
@@ -11,7 +11,7 @@
 const path = require("path");
 const sharp = require("sharp");
 
-const SRC = process.argv[2] || "C:/Users/admin/Downloads/bathcraft_logo.png";
+const SRC = process.argv[2] || "C:/Users/admin/Downloads/milagro_logo.png";
 const OUT = path.join(__dirname, "..", "public", "logo");
 
 // Measured from the source raster (see docs/logo-geometry.md).

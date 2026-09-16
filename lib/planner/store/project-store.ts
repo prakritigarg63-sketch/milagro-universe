@@ -9,7 +9,20 @@ import type {
   FixtureVariant,
   Opening,
   Placement,
+  PlacedFixture,
   Project,
+  ProjectType,
+  PlumbingPoint,
+  PlumbingIntent,
+  DoorDetail,
+  ExtraOpening,
+  LayoutOptionId,
+  StyleDirection,
+  FinishSurface,
+  Finishes,
+  ProductCategory,
+  GeneratedPlan,
+  FixtureChoice,
   RoomPreset,
   Unit,
 } from "@/lib/planner/types";
@@ -44,6 +57,31 @@ interface ProjectState {
   /** Delete a project; clears the current one if it was the deleted one. */
   removeProject: (id: string) => Promise<void>;
   hydrate: (project: Project) => void;
+
+  // Studio — what the homeowner is building. Gates which questions we ask.
+  setProjectType: (projectType: ProjectType) => void;
+  /** Absolute dimension set (inches), for typed entry rather than steppers. */
+  setDim: (dim: DimKey, inches: number) => void;
+  setDoorDetail: (detail: DoorDetail) => void;
+  addExtraOpening: (opening: ExtraOpening) => void;
+  updateExtraOpening: (id: string, patch: Partial<ExtraOpening>) => void;
+  removeExtraOpening: (id: string) => void;
+  setNoWindow: (value: boolean) => void;
+  addPlumbingPoint: (point: PlumbingPoint) => void;
+  movePlumbingPoint: (id: string, wall: PlumbingPoint["wall"], offsetInches: number) => void;
+  removePlumbingPoint: (id: string) => void;
+  setPlumbingIntent: (intent: PlumbingIntent) => void;
+  /** Commit one of the three suggestions as the working plan. */
+  chooseLayout: (id: LayoutOptionId, fixtures: FixtureChoice[], plan: GeneratedPlan) => void;
+  /** Canvas edits. The whole array is replaced so undo/redo can snapshot it. */
+  setPlacedFixtures: (fixtures: PlacedFixture[]) => void;
+  /** Throw away canvas edits and return to the chosen suggestion. */
+  resetPlacedFixtures: () => void;
+  /** Pick a visual direction. Seeds finishes the homeowner has not set. */
+  setStyleDirection: (direction: StyleDirection, preset: Finishes) => void;
+  setFinish: (surface: FinishSurface, optionId: string) => void;
+  /** Keep a product for a category (Screen 9). */
+  setProduct: (category: ProductCategory, optionId: string) => void;
 
   // Step 1 — room
   setRoomName: (name: string) => void;
@@ -94,7 +132,7 @@ function schedulePersist(project: Project) {
 }
 
 // Remember which project was last open so a reload reopens it (not just "latest").
-const LAST_OPENED_KEY = "bathcraft.lastProjectId";
+const LAST_OPENED_KEY = "milagro.lastProjectId";
 function rememberOpened(id: string | null) {
   try {
     if (id) window.localStorage.setItem(LAST_OPENED_KEY, id);
@@ -189,6 +227,110 @@ export const useProjectStore = create<ProjectState>((set, get) => {
       set({ project });
     },
 
+    setProjectType(projectType) {
+      mutate((p) => ({ ...p, projectType }));
+    },
+
+    setDim(dim, inches) {
+      mutate((p) => ({
+        ...p,
+        room: { ...p.room, [dimField(dim)]: clampDim(dim, Math.round(inches)) },
+      }));
+    },
+
+    setDoorDetail(detail) {
+      mutate((p) => ({ ...p, doorDetail: detail }));
+    },
+
+    addExtraOpening(opening) {
+      mutate((p) => ({ ...p, extraOpenings: [...(p.extraOpenings ?? []), opening] }));
+    },
+
+    updateExtraOpening(id, patch) {
+      mutate((p) => ({
+        ...p,
+        extraOpenings: (p.extraOpenings ?? []).map((o) => (o.id === id ? { ...o, ...patch } : o)),
+      }));
+    },
+
+    removeExtraOpening(id) {
+      mutate((p) => ({
+        ...p,
+        extraOpenings: (p.extraOpenings ?? []).filter((o) => o.id !== id),
+      }));
+    },
+
+    /** Declaring "no window" also drops any already placed, so the plan and the
+     *  declaration cannot disagree. Vents are left alone — a windowless
+     *  bathroom is exactly the one most likely to need one. */
+    setNoWindow(value) {
+      mutate((p) => ({
+        ...p,
+        noWindow: value,
+        extraOpenings: value
+          ? (p.extraOpenings ?? []).filter((o) => o.kind !== "window")
+          : (p.extraOpenings ?? []),
+      }));
+    },
+
+    addPlumbingPoint(point) {
+      mutate((p) => ({ ...p, plumbing: [...(p.plumbing ?? []), point] }));
+    },
+
+    movePlumbingPoint(id, wall, offsetInches) {
+      mutate((p) => ({
+        ...p,
+        plumbing: (p.plumbing ?? []).map((pt) =>
+          pt.id === id ? { ...pt, wall, offsetInches } : pt,
+        ),
+      }));
+    },
+
+    removePlumbingPoint(id) {
+      mutate((p) => ({ ...p, plumbing: (p.plumbing ?? []).filter((pt) => pt.id !== id) }));
+    },
+
+    setPlumbingIntent(intent) {
+      mutate((p) => ({ ...p, plumbingIntent: intent }));
+    },
+
+    chooseLayout(id, fixtures, plan) {
+      mutate((p) => ({
+        ...p,
+        selectedLayoutId: id,
+        fixtures,
+        plan,
+        // The canvas starts from the chosen suggestion; edits diverge from here.
+        placedFixtures: plan.fixtures,
+        status: p.status === "draft" ? "planned" : p.status,
+      }));
+    },
+
+    setPlacedFixtures(fixtures) {
+      mutate((p) => ({ ...p, placedFixtures: fixtures }));
+    },
+
+    resetPlacedFixtures() {
+      mutate((p) => ({ ...p, placedFixtures: p.plan?.fixtures ?? [] }));
+    },
+
+    setStyleDirection(direction, preset) {
+      mutate((p) => ({
+        ...p,
+        styleDirection: direction,
+        // Hand-picked finishes win: a style is a starting point, not a reset.
+        finishes: { ...preset, ...(p.finishes ?? {}) },
+      }));
+    },
+
+    setFinish(surface, optionId) {
+      mutate((p) => ({ ...p, finishes: { ...(p.finishes ?? {}), [surface]: optionId } }));
+    },
+
+    setProduct(category, optionId) {
+      mutate((p) => ({ ...p, products: { ...(p.products ?? {}), [category]: optionId } }));
+    },
+
     setRoomName(name) {
       mutate((p) => ({ ...p, room: { ...p.room, name, preset: null } }));
     },
@@ -250,7 +392,7 @@ export const useProjectStore = create<ProjectState>((set, get) => {
     },
 
     setCostTier(tier) {
-      mutate((p) => ({ ...p, style: { ...p.style, costTier: tier } }));
+      mutate((p) => ({ ...p, style: { ...p.style, costTier: tier }, tierChosen: true }));
     },
 
     setBudget(inr) {

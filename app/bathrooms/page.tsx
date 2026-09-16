@@ -97,14 +97,14 @@ export default function BathroomsPage() {
     };
   }, [ready, user]);
 
-  async function open(id: string, href = "/planner/space") {
+  async function open(id: string, href = "/planner/classic/space") {
     await loadProject(id);
     router.push(href);
   }
 
   async function create() {
     const p = await newProject(onboarding?.bathroomName);
-    if (p) router.push("/planner/space");
+    if (p) router.push("/planner/classic/space");
   }
 
   async function remove(id: string) {
@@ -291,19 +291,19 @@ function NextSteps({ onStep }: { onStep: (href: string) => void }) {
   const t = useT();
   const steps = [
     {
-      href: "/planner/space",
+      href: "/planner/classic/space",
       title: t("Measure & choose a style"),
       body: t("Enter the room size, place the door and window, and pick the look you want."),
       cta: t("Open measurements"),
     },
     {
-      href: "/planner/plan",
+      href: "/planner/classic/plan",
       title: t("See it in 4D"),
       body: t("Walk around your bathroom in 3D and play the build, day by day."),
       cta: t("Open the 4D plan"),
     },
     {
-      href: "/planner/brief",
+      href: "/planner/classic/brief",
       title: t("Get the estimate & share"),
       body: t("Check materials and cost, then send the brief to your contractor."),
       cta: t("Open the brief"),

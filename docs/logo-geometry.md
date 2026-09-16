@@ -1,4 +1,4 @@
-# BathCraft logo geometry
+# Milagro Universe logo geometry
 
 Everything here was **measured off the supplied raster**
 (`bathcraft_logo.png`, 1024×1024) by scanning pixel runs — nothing is invented.

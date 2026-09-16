@@ -17,7 +17,7 @@ export { normaliseEmail };
 export type { UserStore, NewUser, NewAccount, ProfilePatch };
 
 /**
- * The BathCraft user store.
+ * The Milagro Universe user store.
  *
  * ─────────────────────────────────────────────────────────────────────────────
  * TWO IMPLEMENTATIONS, PICKED BY ENVIRONMENT.
@@ -37,7 +37,7 @@ export type { UserStore, NewUser, NewAccount, ProfilePatch };
  */
 /* ── file-backed implementation ─────────────────────────────────────────── */
 
-const FILE = process.env.BATHCRAFT_DATA_FILE ?? join(process.cwd(), ".data", "bathcraft.json");
+const FILE = process.env.MILAGRO_DATA_FILE ?? join(process.cwd(), ".data", "milagro.json");
 const EMPTY: Database = { users: [], accounts: [] };
 
 /**
@@ -181,7 +181,7 @@ function resolveStore(): UserStore {
   if (!hasSupabase) {
     if (process.env.NODE_ENV !== "production") {
       console.warn(
-        "[bathcraft] Supabase is not configured — using the JSON file store at " +
+        "[milagro] Supabase is not configured — using the JSON file store at " +
           FILE +
           ". Development only; set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY for the real database.",
       );

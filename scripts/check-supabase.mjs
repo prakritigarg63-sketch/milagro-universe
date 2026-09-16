@@ -29,7 +29,7 @@ const bad = (m) => { console.error("  ✗ " + m); process.exitCode = 1; };
 const url = process.env.SUPABASE_URL;
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-console.log("\nBathCraft → Supabase\n");
+console.log("\nMilagro Universe → Supabase\n");
 
 if (!url || !key) {
   bad("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are not both set.");

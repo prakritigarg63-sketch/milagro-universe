@@ -61,7 +61,7 @@ export async function saveOnboarding(answers: OnboardingAnswers): Promise<{ ok: 
 /**
  * Password reset — NOT IMPLEMENTED, and deliberately not faked.
  *
- * BathCraft has no mail transport, so no reset link can be sent. The form is
+ * Milagro Universe has no mail transport, so no reset link can be sent. The form is
  * left wired to this so the screen keeps working, and it always resolves: an
  * endpoint that answered differently for a registered address would tell an
  * attacker which emails have accounts. Implement a real token + email here.

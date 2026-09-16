@@ -1,5 +1,5 @@
 /**
- * BathCraft domain model — the shared vocabulary for the whole app.
+ * Milagro Universe domain model — the shared vocabulary for the whole app.
  * All physical measurements are stored in INCHES internally; unit display
  * (imperial/metric) is a presentation concern handled at the edges.
  */
@@ -143,7 +143,7 @@ export interface ProjectMember {
 
 export type ProjectStatus = "draft" | "planned" | "shared";
 
-export interface Project {
+export interface Project extends StudioFields {
   id: string;
   ownerId: string;
   members: ProjectMember[];
@@ -157,3 +157,151 @@ export interface Project {
   createdAt: string;
   updatedAt: string;
 }
+
+/* ---------------------------------------------------------------------------
+   Studio additions.
+
+   The guided /planner journey (project type → estimate) needs state the
+   original wizard never captured. Everything here is OPTIONAL on `Project` so
+   projects saved by the earlier wizard still load and still typecheck; the
+   studio fills the gaps via `withStudioDefaults()` in defaults.ts.
+--------------------------------------------------------------------------- */
+
+/** What the homeowner is actually doing. Drives which questions we ask —
+ *  a new build has no existing plumbing to keep. */
+export type ProjectType = "newBuild" | "renovation" | "redesign";
+
+/** How willing the homeowner is to move existing plumbing (renovation only).
+ *  Keeping outlets where they are is the single biggest cost lever. */
+export type PlumbingIntent = "keepExisting" | "openToMoving" | "notSure";
+
+export type PlumbingPointType = "wcOutlet" | "basinPoint" | "showerPoint" | "waterInlet";
+
+/** A fixed service point on a wall, positioned like an Opening. */
+export interface PlumbingPoint {
+  id: string;
+  type: PlumbingPointType;
+  wall: Wall;
+  offsetInches: number;
+}
+
+/** Openings beyond the room's primary door/window — extra windows and vents. */
+export type ExtraOpeningKind = "window" | "vent";
+
+export interface ExtraOpening extends Opening {
+  id: string;
+  kind: ExtraOpeningKind;
+  /** Windows only: pane height and sill height above floor, in inches. */
+  heightInches?: number;
+  sillHeightInches?: number;
+}
+
+/** Door detail the original Opening did not carry. */
+export type DoorHinge = "left" | "right";
+export type DoorSwing = "in" | "out";
+
+export interface DoorDetail {
+  hinge: DoorHinge;
+  swing: DoorSwing;
+}
+
+/** The three suggestions offered on the layout screen. */
+export type LayoutOptionId = "balanced" | "open" | "storage";
+
+/** Visual direction, distinct from the structural `ArchitectureStyle` the
+ *  estimate engine reads. Maps onto it via `architectureForDirection()`. */
+export type StyleDirection =
+  | "warmMinimal"
+  | "modernLuxe"
+  | "naturalEarthy"
+  | "cleanContemporary"
+  | "classic";
+
+export type ProductCategory =
+  | "wc"
+  | "basin"
+  | "shower"
+  | "faucets"
+  | "storage"
+  | "tiles"
+  | "accessories";
+
+/** Where an alternative sits relative to the recommended pick. */
+export type ProductBand = "save" | "recommended" | "upgrade";
+
+export interface ProductOption {
+  id: string;
+  category: ProductCategory;
+  name: string;
+  brand: string;
+  /** Indicative only — seeded prototype data, never a live quote. */
+  indicativePriceInr: number;
+  band: ProductBand;
+  /** Short homeowner-facing reasons this fits their project. */
+  whyItFits: string[];
+}
+
+/** The homeowner's pick per category: which option id they kept. */
+export type ProductSelections = Partial<Record<ProductCategory, string>>;
+
+/** A material line for the "what your design may need" summary. */
+export interface MaterialLine {
+  key: string;
+  label: string;
+  quantity: number;
+  unit: string;
+  /** Recommended over-order allowance, as a fraction (0.1 = +10%). */
+  bufferPct?: number;
+}
+
+export interface MaterialGroup {
+  key: "tiles" | "plumbing" | "fixtures" | "construction" | "accessories";
+  label: string;
+  lines: MaterialLine[];
+}
+
+/** Everything the studio adds to a project. Spread onto `Project` as optional
+ *  fields rather than nested, so `project.projectType` reads naturally. */
+export interface StudioFields {
+  /**
+   * Whether the homeowner has actually picked a spending tier.
+   *
+   * `style.costTier` always holds a usable value so the screens before this
+   * one have something to price against. That makes it useless for deciding
+   * whether the question has been answered — this says so explicitly.
+   */
+  tierChosen?: boolean;
+  projectType?: ProjectType;
+  doorDetail?: DoorDetail;
+  extraOpenings?: ExtraOpening[];
+  /**
+   * Set when the room has no window at all.
+   *
+   * Distinct from "no window has been placed yet", which is the same absence
+   * for an entirely different reason. Without this the step cannot tell a
+   * windowless bathroom from an unfinished one, so it has to keep asking.
+   */
+  noWindow?: boolean;
+  plumbing?: PlumbingPoint[];
+  plumbingIntent?: PlumbingIntent;
+  selectedLayoutId?: LayoutOptionId;
+  /** The canvas state — user-moved fixtures. Falls back to `plan.fixtures`. */
+  placedFixtures?: PlacedFixture[];
+  styleDirection?: StyleDirection;
+  finishes?: Finishes;
+  products?: ProductSelections;
+}
+
+/** Surfaces and elements the homeowner can restyle on the visualize screen. */
+export type FinishSurface =
+  | "floor"
+  | "walls"
+  | "tiles"
+  | "vanity"
+  | "shower"
+  | "wc"
+  | "fittings"
+  | "lighting";
+
+/** Chosen option id per surface, e.g. { floor: "warmTravertine" }. */
+export type Finishes = Partial<Record<FinishSurface, string>>;

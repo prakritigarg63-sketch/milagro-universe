@@ -12,7 +12,7 @@
  * intent must not outlive the tab, or an abandoned attempt would be counted days
  * later on an unrelated visit.
  */
-const KEY = "bathcraft:auth-intent";
+const KEY = "milagro:auth-intent";
 
 export type AuthIntent = {
   kind: "signin" | "signup";
