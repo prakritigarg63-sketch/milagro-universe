@@ -31,8 +31,10 @@ export default function PlanPage() {
   const { project } = useEnsureProject();
   const generateEstimate = useProjectStore((s) => s.generateEstimate);
   const finalize = useProjectStore((s) => s.finalize);
+  const saveNow = useProjectStore((s) => s.saveNow);
   const openSaveGate = useStudioStore((s) => s.openSaveGate);
 
+  const [saving, setSaving] = useState(false);
   const [savedNote, setSavedNote] = useState<string | null>(null);
   const [shareNote, setShareNote] = useState<string | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
@@ -75,14 +77,26 @@ export default function PlanPage() {
     { label: "Indicative budget", done: Boolean(estimate) },
   ];
 
-  function handleSave() {
+  /**
+   * The confirmation has to follow the write, not race it. finalize() only
+   * mutates in memory and queues the debounced save; saveNow() is what actually
+   * reaches the server, and a failed write now says so instead of claiming the
+   * plan is safe in an account it never got to.
+   */
+  async function handleSave() {
     if (!user) {
       openSaveGate("save");
       return;
     }
+    if (saving) return;
+    setSaving(true);
     finalize();
-    setSavedNote(t("Saved to your account."));
-    window.setTimeout(() => setSavedNote(null), 2600);
+    const ok = await saveNow();
+    setSaving(false);
+    setSavedNote(
+      ok ? t("Saved to your account.") : t("Couldn’t save. Check your connection and try again."),
+    );
+    window.setTimeout(() => setSavedNote(null), ok ? 2600 : 4600);
   }
 
   function handleDownload() {

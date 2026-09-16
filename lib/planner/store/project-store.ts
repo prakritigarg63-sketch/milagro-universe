@@ -109,6 +109,16 @@ interface ProjectState {
 
   // Step 6 — mark the project saved/finalised
   finalize: () => void;
+
+  /**
+   * Write the project to the server now and report whether it landed.
+   *
+   * Every other mutation persists through the 700ms debounce, which is right
+   * for a stepper being held down and wrong for a Save button: the user is told
+   * the plan is saved, so the write has to have happened, and a failure has to
+   * be visible rather than swallowed.
+   */
+  saveNow: () => Promise<boolean>;
 }
 
 function clampDim(dim: DimKey, value: number): number {
@@ -125,10 +135,17 @@ function dimField(dim: DimKey): "lengthInches" | "widthInches" | "heightInches" 
 // held down or fast typing is one save, not dozens.
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
 function schedulePersist(project: Project) {
-  if (saveTimer) clearTimeout(saveTimer);
+  cancelPersist();
   saveTimer = setTimeout(() => {
+    saveTimer = null;
     void saveProject(project).catch(() => {});
   }, 700);
+}
+
+/** Drop a pending debounced write, so an explicit save cannot be raced by it. */
+function cancelPersist() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = null;
 }
 
 // Remember which project was last open so a reload reopens it (not just "latest").
@@ -415,7 +432,22 @@ export const useProjectStore = create<ProjectState>((set, get) => {
     },
 
     finalize() {
-      mutate((p) => ({ ...p, status: "shared" }));
+      // Saving is not sharing. "shared" is what My Bathrooms reads as "Shared
+      // with contractor", and pressing Save has never told a contractor
+      // anything — that belongs to the invite flow.
+      mutate((p) => ({ ...p, status: "planned" }));
+    },
+
+    async saveNow() {
+      const project = get().project;
+      if (!project) return false;
+      cancelPersist();
+      try {
+        await saveProject(project);
+        return true;
+      } catch {
+        return false;
+      }
     },
   };
 });
