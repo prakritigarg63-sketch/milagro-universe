@@ -538,3 +538,29 @@ body {
   --color-blueprint-fine: rgb(255 255 255 / 0.025);
   --color-blueprint-major: rgb(255 255 255 / 0.045);
 }
+
+/* ---------------------------------------------------------------------------
+   Touch targets.
+
+   A fingertip needs about 44px to hit something reliably; a mouse pointer does
+   not, and forcing 44px everywhere would leave desktop controls looking
+   inflated. `pointer: coarse` is the honest split — it asks what the person is
+   actually pointing with rather than guessing from screen width, so a touch
+   laptop gets the larger targets too and a narrow desktop window does not.
+
+   min-height beats a smaller fixed height, so this lifts the h-9 and h-10
+   controls across the planner and the site without touching either.
+--------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a[class*="rounded-pill"],
+  summary {
+    min-height: 44px;
+  }
+
+  /* Square icon buttons need the width too, or they become tall slivers. */
+  button[aria-label]:not([class*="w-full"]):not([class*="flex-1"]) {
+    min-width: 44px;
+  }
+}

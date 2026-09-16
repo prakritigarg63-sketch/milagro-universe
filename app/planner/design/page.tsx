@@ -122,7 +122,14 @@ export default function DesignPage() {
 
       <div className="mx-auto grid w-full max-w-[1600px] gap-0 px-0 lg:grid-cols-[228px_minmax(0,1fr)_288px]">
         {/* ── Fixtures ─────────────────────────────────────────────── */}
-        <aside className="border-hairline lg:border-r lg:py-6">
+        {/* min-w-0: below lg this is a single-column grid, and a grid item's
+            automatic minimum size is its max-content width. The horizontal
+            fixture strip is ~1565px of max-content, which sized the one
+            implicit column to 1565px and blew the layout out sideways on a
+            phone — the inner overflow-x-auto cannot rescue a track that has
+            already been sized. The section below always carried min-w-0; the
+            asides did not. */}
+        <aside className="min-w-0 border-hairline lg:border-r lg:py-6">
           <h2 className="px-4 pb-2 pt-5 text-[12px] font-semibold uppercase tracking-[0.08em] text-body-soft lg:pt-0">
             {t("Fixtures")}
           </h2>
@@ -218,7 +225,9 @@ export default function DesignPage() {
         </section>
 
         {/* ── Details ──────────────────────────────────────────────── */}
-        <aside className="border-hairline px-4 py-5 lg:border-l lg:py-6">
+        {/* Same reason as the Fixtures aside: a long fixture name must not be
+            able to size the phone's single grid column. */}
+        <aside className="min-w-0 border-hairline px-4 py-5 lg:border-l lg:py-6">
           <h2 className="pb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-body-soft">
             {t("Details")}
           </h2>
