@@ -161,8 +161,8 @@ export default function DesignPage() {
             </div>
 
             <div className="ml-auto flex items-center gap-1.5">
-              <ToolButton label={t("Undo")} icon="swap" disabled={pastLength === 0} onClick={undo} flip />
-              <ToolButton label={t("Redo")} icon="swap" disabled={futureLength === 0} onClick={redo} />
+              <ToolButton label={t("Undo")} icon="undo" disabled={pastLength === 0} onClick={undo} />
+              <ToolButton label={t("Redo")} icon="redo" disabled={futureLength === 0} onClick={redo} />
               <button
                 type="button"
                 onClick={() => {
@@ -286,13 +286,11 @@ function ToolButton({
   icon,
   disabled,
   onClick,
-  flip = false,
 }: {
   label: string;
   icon: Parameters<typeof Icon>[0]["name"];
   disabled: boolean;
   onClick: () => void;
-  flip?: boolean;
 }) {
   return (
     <button
@@ -305,7 +303,7 @@ function ToolButton({
                  bg-surface-raised text-body transition-colors hover:border-brand/45 hover:text-ink
                  disabled:pointer-events-none disabled:opacity-40"
     >
-      <Icon name={icon} size={15} className={flip ? "-scale-x-100" : ""} />
+      <Icon name={icon} size={15} />
     </button>
   );
 }

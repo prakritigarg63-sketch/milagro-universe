@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import MilagroLogo from "@/components/MilagroLogo";
+import BrandLockup from "@/components/brand/BrandLockup";
 import UserMenu from "@/components/auth/UserMenu";
 import Icon from "@/components/ui/Icon";
 import { useT } from "@/lib/i18n/useT";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { useResolvedTheme } from "@/lib/useTheme";
 
 interface Props {
   projectName: string;
@@ -32,6 +33,7 @@ export function StudioHeader({
 }: Props) {
   const t = useT();
   const { user } = useAuth();
+  const dark = useResolvedTheme() === "dark";
 
   return (
     <header className="sticky top-0 z-40 border-b border-hairline bg-surface/95 backdrop-blur">
@@ -47,9 +49,17 @@ export function StudioHeader({
 
         <span className="h-6 w-px shrink-0 bg-hairline" aria-hidden="true" />
 
-        <Link href="/planner" aria-label={t("Milagro Universe — planner")} className="shrink-0">
-          <MilagroLogo className="h-7" />
-        </Link>
+        {/* The mark is branding here, not navigation. Linking it to /planner
+            sent anyone who clicked it back to project-type selection from
+            whatever step they were on — losing their place mid-flow for a
+            gesture people make absent-mindedly. The way out is "Home", above. */}
+        <span className="shrink-0">
+          {/* h-11 — the same lockup size as the footer, so every static mark in
+              the app is one artwork at one scale. It is 137px wide, which on a
+              360px phone leaves the project name about 43px once the back
+              link's label is hidden: tight, but readable and tappable. */}
+          <BrandLockup tone={dark ? "white" : "brand"} className="h-11 w-auto" />
+        </span>
 
         {/* The project name is the title of the page and editable in place —
             renaming should not need a settings screen. */}

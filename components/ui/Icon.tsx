@@ -27,6 +27,8 @@ export type IconName =
   | "arrowRight"
   | "arrowDown"
   | "swap"
+  | "undo"
+  | "redo"
   | "menu"
   | "close"
   | "instagram"
@@ -234,6 +236,11 @@ const PATHS: Record<IconName, React.ReactNode> = {
     </>
   ),
   moon: <path d="M20 13.5A8 8 0 0 1 10.5 4a8 8 0 1 0 9.5 9.5Z" />,
+  /* Undo/redo double back on themselves. "swap" was used for both, but it is
+     horizontally symmetric, so mirroring it for undo produced the same glyph
+     twice and neither read as undo. */
+  undo: <path d="M4 9h10a5 5 0 0 1 0 10h-6M4 9l4-4M4 9l4 4" />,
+  redo: <path d="M20 9H10a5 5 0 0 0 0 10h6M20 9l-4-4M20 9l-4 4" />,
 };
 
 const FILLED: IconName[] = ["star", "play", "home", "sparkle"];

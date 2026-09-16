@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import Icon from "@/components/ui/Icon";
-import MilagroLogo from "@/components/MilagroLogo";
+import BrandLockup from "@/components/brand/BrandLockup";
 import { useT } from "@/lib/i18n/useT";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { useResolvedTheme } from "@/lib/useTheme";
 import { useProjectStore } from "@/lib/planner/store/project-store";
 import { acceptInviteAction } from "@/app/planner/actions";
 import { EVENTS } from "@/lib/analytics/events";
@@ -30,6 +31,7 @@ export default function StudioJoinPage() {
   const params = useParams();
   const router = useRouter();
   const { user, ready } = useAuth();
+  const dark = useResolvedTheme() === "dark";
   const loadProject = useProjectStore((s) => s.loadProject);
 
   // Only the redemption outcome is state; everything else is derived, so the
@@ -93,7 +95,7 @@ export default function StudioJoinPage() {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center bg-surface px-5 py-16">
       <Link href="/" aria-label={t("Milagro Universe — home")}>
-        <MilagroLogo className="h-9" />
+        <BrandLockup tone={dark ? "white" : "brand"} className="h-11 w-auto" />
       </Link>
 
       <div className="mt-10 w-full max-w-md rounded-2xl border border-hairline bg-surface-raised p-7 text-center">
