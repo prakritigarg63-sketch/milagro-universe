@@ -59,6 +59,7 @@ export const STEPS: Step[] = [
   { id: "materials", href: "/planner/materials", phase: "estimate", title: "Materials", built: true },
   { id: "estimate", href: "/planner/estimate", phase: "estimate", title: "Estimate", built: true },
   { id: "plan", href: "/planner/plan", phase: "estimate", title: "Your plan", built: true },
+  { id: "shops", href: "/planner/shops", phase: "estimate", title: "Shops near you", built: true },
 ];
 
 export function stepIndexOf(id: string): number {

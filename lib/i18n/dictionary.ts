@@ -967,4 +967,32 @@ export const hi: Record<string, string> = {
   "no fixtures": "कोई फ़िक्स्चर नहीं",
   "and the door on the": "और दरवाज़ा",
   "wall": "दीवार पर",
+
+  /* ── studio — shops near you (Section D) ────────────────────────────── */
+  "Shops near you": "आपके पास की दुकानें",
+  "Real, listed dealers for your bathroom, grouped by trade. Call ahead before visiting.":
+    "आपके बाथरूम के लिए असली, सूचीबद्ध डीलर, काम के अनुसार समूहित। जाने से पहले कॉल करें।",
+  "Near": "पास",
+  "approximate": "अनुमानित",
+  "Change location": "स्थान बदलें",
+  "Finding your city…": "आपका शहर ढूँढ रहे हैं…",
+  "Use my location": "मेरा स्थान उपयोग करें",
+  "Location unavailable — pick your city": "स्थान उपलब्ध नहीं — अपना शहर चुनें",
+  "No listed dealer in your city yet.": "आपके शहर में अभी कोई सूचीबद्ध डीलर नहीं।",
+  "Call": "कॉल करें",
+  "No phone listed": "कोई फ़ोन सूचीबद्ध नहीं",
+  "Map": "मैप",
+  "Done": "हो गया",
+  "Listings from public sources, collected Sept 2026. Call before visiting.":
+    "सार्वजनिक स्रोतों से सूचियाँ, सितंबर 2026 में एकत्रित। जाने से पहले कॉल करें।",
+  "Sanitaryware & fittings": "सैनिटरीवेयर और फिटिंग",
+  "Tiles & masonry": "टाइलें और चिनाई",
+  "Electrical appliances": "बिजली के उपकरण",
+  "Switches & wires": "स्विच और तार",
+  "Brand store": "ब्रांड स्टोर",
+  "Authorised": "अधिकृत",
+  "Multi-brand": "मल्टी-ब्रांड",
+  "Within 5 km": "5 किमी के भीतर",
+  "Nearest within 15 km": "15 किमी के भीतर निकटतम",
+  "Across the city": "पूरे शहर में",
 };
