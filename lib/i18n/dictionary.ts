@@ -396,6 +396,8 @@ export const hi: Record<string, string> = {
 
   /* ── studio — final plan ─────────────────────────────────────────────── */
   "Saved to your account.": "आपके खाते में सहेजा गया।",
+  "Couldn’t save. Check your connection and try again.":
+    "सहेजा नहीं जा सका। अपना कनेक्शन जांचें और फिर कोशिश करें।",
   "Save the plan first, then you can share it.": "पहले प्लान सहेजें, फिर आप इसे साझा कर सकते हैं।",
   "Save my bathroom": "मेरा बाथरूम सहेजें",
   "Your bathroom is ready to take shape.": "आपका बाथरूम आकार लेने को तैयार है।",
