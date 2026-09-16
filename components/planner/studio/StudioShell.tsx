@@ -76,19 +76,37 @@ export function StudioShell({ stepId, footer, bleed = false, children }: Props) 
       <JourneyNav stepId={stepId} furthestPhaseIndex={furthestPhaseIndex} />
 
       <main className={bleed ? "flex-1" : "mx-auto w-full max-w-[1100px] flex-1 px-4 py-10 sm:px-6 sm:py-14"}>
-        {project ? children : <LoadingState label={t("Opening your plan…")} />}
+        {project ? children : <LoadingSkeleton label={t("Opening your plan…")} bleed={bleed} />}
       </main>
 
-      {footer}
+      {/* Held back until there is something to act on: a disabled Continue bar
+          above an empty page reads as broken, not as loading. */}
+      {project ? footer : null}
       <SaveGate />
     </div>
   );
 }
 
-function LoadingState({ label }: { label: string }) {
+/**
+ * The shape of a studio screen, not a spinner.
+ *
+ * Every step opens with a heading, a line of support copy and a panel, so the
+ * skeleton is those three things. It holds the layout still while the project
+ * loads instead of collapsing and then jumping.
+ */
+function LoadingSkeleton({ label, bleed }: { label: string; bleed: boolean }) {
   return (
-    <div className="flex min-h-[40vh] items-center justify-center" role="status">
-      <span className="text-[14px] text-body-soft">{label}</span>
+    <div
+      className={bleed ? "mx-auto w-full max-w-[1600px] px-4 pt-8 sm:px-6" : ""}
+      role="status"
+      aria-live="polite"
+    >
+      <span className="sr-only">{label}</span>
+      <div aria-hidden="true" className="animate-pulse motion-reduce:animate-none">
+        <div className="h-9 w-2/3 max-w-sm rounded-lg bg-field" />
+        <div className="mt-4 h-4 w-full max-w-md rounded bg-field/70" />
+        <div className="mt-9 h-64 w-full rounded-2xl border border-hairline bg-field/40 sm:h-80" />
+      </div>
     </div>
   );
 }

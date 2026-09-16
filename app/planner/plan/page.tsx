@@ -134,7 +134,14 @@ export default function PlanPage() {
         <>
           <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
             <div className="flex items-center overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-7">
-              <RoomView3D room={room} fixtures={fixtures} selectedIndex={null} palette={palette} showcase />
+              <RoomView3D
+                room={room}
+                fixtures={fixtures}
+                selectedIndex={null}
+                doorDetail={project.doorDetail}
+                palette={palette}
+                showcase
+              />
             </div>
             {/* The plan is wider than it is tall, so it would sit at the top of a
                 stretched grid cell with a void beneath it. Centre it instead. */}

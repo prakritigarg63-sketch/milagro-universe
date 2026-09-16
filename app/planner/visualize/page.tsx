@@ -105,6 +105,7 @@ export default function VisualizePage() {
                 room={room}
                 fixtures={fixtures}
                 selectedIndex={null}
+                doorDetail={project.doorDetail}
                 palette={showBefore ? {} : palette}
                 showcase
               />

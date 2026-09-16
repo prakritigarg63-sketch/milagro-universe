@@ -128,7 +128,14 @@ export default function StylePage() {
         <aside className="lg:sticky lg:top-32 lg:self-start">
           <div className="overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5">
             {room && (
-              <RoomView3D room={room} fixtures={fixtures} selectedIndex={null} palette={palette} showcase />
+              <RoomView3D
+                room={room}
+                fixtures={fixtures}
+                selectedIndex={null}
+                doorDetail={project?.doorDetail}
+                palette={palette}
+                showcase
+              />
             )}
           </div>
           <p className="mt-3 text-center text-[12.5px] text-body-soft">

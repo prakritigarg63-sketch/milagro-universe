@@ -72,6 +72,8 @@ export default function BudgetPage() {
   const [clamped, setClamped] = useState(false);
 
   const tier = project?.style.costTier ?? null;
+  // The tier always has a value; this is whether anyone picked it.
+  const tierChosen = project?.tierChosen ?? false;
   const budget = project?.style.budgetInr ?? 0;
 
   /**
@@ -139,7 +141,7 @@ export default function BudgetPage() {
       footer={
         <StepFooter
           stepId="budget"
-          blockedReason={tier ? null : t("Choose how you’d like to spend")}
+          blockedReason={tierChosen ? null : t("Choose how you’d like to spend")}
         />
       }
     >
@@ -154,7 +156,9 @@ export default function BudgetPage() {
 
       <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {TIERS.map((item) => {
-          const active = tier === item.id;
+          // Nothing reads as chosen until it has been, so the default tier
+          // cannot pass itself off as the homeowner's answer.
+          const active = tierChosen && tier === item.id;
           return (
             <button
               key={item.id}

@@ -957,4 +957,14 @@ export const hi: Record<string, string> = {
   "Fixture": "फ़िक्स्चर",
   "A dark, modern bathroom with a glass shower, stone walls and a timber vanity":
     "काँच के शॉवर, पत्थर की दीवारों और लकड़ी की वैनिटी वाला गहरे रंग का आधुनिक बाथरूम",
+
+  /* ── studio — canvas header ─────────────────────────────────────────── */
+  "Make it yours.": "इसे अपना बनाएँ।",
+  "Move anything. We’ll tell you when something needs more room.":
+    "कुछ भी खिसकाएँ। जहाँ ज़्यादा जगह चाहिए, हम बता देंगे।",
+
+  /* ── studio — 3D view ───────────────────────────────────────────────── */
+  "no fixtures": "कोई फ़िक्स्चर नहीं",
+  "and the door on the": "और दरवाज़ा",
+  "wall": "दीवार पर",
 };

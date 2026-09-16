@@ -111,6 +111,15 @@ export default function DesignPage() {
         />
       }
     >
+      <header className="mx-auto w-full max-w-[1600px] px-4 pt-6 sm:px-6">
+        <h1 className="text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[30px]">
+          {t("Make it yours.")}
+        </h1>
+        <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-body">
+          {t("Move anything. We’ll tell you when something needs more room.")}
+        </p>
+      </header>
+
       <div className="mx-auto grid w-full max-w-[1600px] gap-0 px-0 lg:grid-cols-[228px_minmax(0,1fr)_288px]">
         {/* ── Fixtures ─────────────────────────────────────────────── */}
         <aside className="border-hairline lg:border-r lg:py-6">
@@ -196,7 +205,12 @@ export default function DesignPage() {
                 }
               />
             ) : (
-              <RoomView3D room={room} fixtures={fixtures} selectedIndex={selectedIndex} />
+              <RoomView3D
+                room={room}
+                fixtures={fixtures}
+                selectedIndex={selectedIndex}
+                doorDetail={project.doorDetail}
+              />
             )}
           </div>
 

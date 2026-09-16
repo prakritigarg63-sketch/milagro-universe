@@ -92,7 +92,7 @@ export default function ProjectTypePage() {
       }
     >
       <header className="max-w-2xl">
-        <h1 className="text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[42px]">
+        <h1 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-[44px]">
           {t("Let’s create your bathroom.")}
         </h1>
         <p className="mt-4 text-[16px] leading-relaxed text-body">
@@ -105,6 +105,7 @@ export default function ProjectTypePage() {
           <ProjectTypeCard
             key={card.id}
             card={card}
+            eager={card.id === CARDS[0].id}
             selected={selected === card.id}
             onSelect={() => choose(card.id)}
             onSelectAndGo={() => chooseAndGo(card.id)}
@@ -122,12 +123,15 @@ export default function ProjectTypePage() {
 
 function ProjectTypeCard({
   card,
+  eager,
   selected,
   onSelect,
   onSelectAndGo,
   t,
 }: {
   card: TypeCard;
+  /** The first card is above the fold and is the LCP; it should not lazy-load. */
+  eager: boolean;
   selected: boolean;
   onSelect: () => void;
   onSelectAndGo: () => void;
@@ -155,6 +159,7 @@ function ProjectTypeCard({
           alt=""
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
+          priority={eager}
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
         />
         {selected && (

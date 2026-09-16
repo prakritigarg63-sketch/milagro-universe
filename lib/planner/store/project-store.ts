@@ -392,7 +392,7 @@ export const useProjectStore = create<ProjectState>((set, get) => {
     },
 
     setCostTier(tier) {
-      mutate((p) => ({ ...p, style: { ...p.style, costTier: tier } }));
+      mutate((p) => ({ ...p, style: { ...p.style, costTier: tier }, tierChosen: true }));
     },
 
     setBudget(inr) {

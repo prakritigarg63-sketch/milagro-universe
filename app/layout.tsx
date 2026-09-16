@@ -62,6 +62,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${hanken.variable} ${marcellus.variable} ${caveat.variable} ${devanagari.variable}`}
       suppressHydrationWarning
+      /* globals.css sets scroll-behavior: smooth for in-page anchors. Without
+         this marker Next also applies it to route changes, so a new screen
+         scrolls up instead of starting at the top. */
+      data-scroll-behavior="smooth"
     >
       <head>
         {/* Sets data-theme before first paint. Anything later — a component, an

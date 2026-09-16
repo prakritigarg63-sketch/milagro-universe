@@ -263,6 +263,14 @@ export interface MaterialGroup {
 /** Everything the studio adds to a project. Spread onto `Project` as optional
  *  fields rather than nested, so `project.projectType` reads naturally. */
 export interface StudioFields {
+  /**
+   * Whether the homeowner has actually picked a spending tier.
+   *
+   * `style.costTier` always holds a usable value so the screens before this
+   * one have something to price against. That makes it useless for deciding
+   * whether the question has been answered — this says so explicitly.
+   */
+  tierChosen?: boolean;
   projectType?: ProjectType;
   doorDetail?: DoorDetail;
   extraOpenings?: ExtraOpening[];
