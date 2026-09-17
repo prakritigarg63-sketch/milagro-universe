@@ -96,6 +96,7 @@ export function CommentsThread({ projectId }: { projectId: string }) {
                     <button
                       type="button"
                       onClick={() => remove(c.id)}
+                      aria-label={`${t("Delete")}: ${c.body.slice(0, 40)}`}
                       className="ml-auto text-[11.5px] font-semibold text-body-soft transition-colors hover:text-danger"
                     >
                       {t("Delete")}
@@ -120,6 +121,7 @@ export function CommentsThread({ projectId }: { projectId: string }) {
           onChange={(e) => setBody(e.target.value)}
           rows={2}
           maxLength={2000}
+          aria-label={t("Add a comment for your expert or homeowner…")}
           placeholder={t("Add a comment for your expert or homeowner…")}
           className="w-full resize-y rounded-xl border border-hairline bg-surface px-3.5 py-2.5 text-[14px] text-ink placeholder:text-body-soft/70 focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/12"
         />

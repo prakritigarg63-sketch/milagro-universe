@@ -982,6 +982,7 @@ export const hi: Record<string, string> = {
   "Call": "कॉल करें",
   "No phone listed": "कोई फ़ोन सूचीबद्ध नहीं",
   "Map": "मैप",
+  "opens in a new tab": "नए टैब में खुलता है",
   "Done": "हो गया",
   "Listings from public sources, collected Sept 2026. Call before visiting.":
     "सार्वजनिक स्रोतों से सूचियाँ, सितंबर 2026 में एकत्रित। जाने से पहले कॉल करें।",

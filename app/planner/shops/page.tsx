@@ -198,6 +198,7 @@ export default function ShopsPage() {
                         {d.phone ? (
                           <a
                             href={`tel:${d.phone}`}
+                            aria-label={`${t("Call")} ${d.name}`}
                             className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-pill border border-hairline text-[12.5px] font-semibold text-ink transition-colors hover:bg-wash"
                           >
                             <Icon name="user" size={13} /> {t("Call")}
@@ -210,6 +211,7 @@ export default function ShopsPage() {
                         <a
                           href={mapsUrl(d)}
                           target="_blank"
+                          aria-label={`${t("Map")}: ${d.name} (${t("opens in a new tab")})`}
                           className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-pill bg-brand text-[12.5px] font-semibold text-on-brand transition-colors hover:bg-brand/90"
                         >
                           <Icon name="search" size={13} /> {t("Map")}
