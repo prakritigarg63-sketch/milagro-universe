@@ -37,6 +37,39 @@ export interface StyleKit {
 }
 
 /**
+ * The homeowner's finish picks (from the studio's Visualize step), overriding
+ * the architecture kit's colours so the 3D preview reflects THEIR choices, not
+ * just the base style. Every field is optional — an unset surface keeps the kit.
+ */
+export interface ScenePalette {
+  floor?: string;
+  wall?: string;
+  feature?: string;
+  wood?: string;
+  metal?: string;
+  ceramic?: string;
+  light?: string;
+}
+
+/** Recolour a style kit with the user's finish picks. Keeps tile format and
+ *  roughness; swaps the surface colour to the chosen finish. */
+export function mergeKit(kit: StyleKit, p?: ScenePalette): StyleKit {
+  if (!p) return kit;
+  const recolour = (tile: TileSpec, c?: string): TileSpec =>
+    c ? { ...tile, base: [c], accents: undefined, vein: undefined } : tile;
+  return {
+    ...kit,
+    floor: recolour(kit.floor, p.floor),
+    wall: recolour(kit.wall, p.wall),
+    feature: recolour(kit.feature, p.feature),
+    wood: p.wood ?? kit.wood,
+    metal: p.metal ? { ...kit.metal, color: p.metal } : kit.metal,
+    ceramic: p.ceramic ?? kit.ceramic,
+    light: p.light ?? kit.light,
+  };
+}
+
+/**
  * One material kit per architecture style. Tile sizes are the real formats a
  * showroom would offer for that look; colours are chosen to read as the style
  * under the scene's neutral studio light, not sampled from any one product.

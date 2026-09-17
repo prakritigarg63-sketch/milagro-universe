@@ -11,7 +11,7 @@ import type {
   Wall,
 } from "@/lib/planner/types";
 import type { BuildProgress } from "@/lib/planner/build/phases";
-import { IN, STYLE_KITS, makeTileTexture, tiledFor, type TileSpec } from "./textures";
+import { IN, STYLE_KITS, makeTileTexture, mergeKit, tiledFor, type ScenePalette, type TileSpec } from "./textures";
 import { buildAddOn, buildFixture, makeKitMaterials, mesh, type KitMaterials } from "./fixtures";
 
 export interface SceneModel {
@@ -20,6 +20,8 @@ export interface SceneModel {
   fixtures: FixtureChoice[];
   style: ArchitectureStyle;
   addOns: AddOnType[];
+  /** Optional finish overrides so the render reflects the user's design picks. */
+  palette?: ScenePalette;
 }
 
 /*
@@ -369,7 +371,7 @@ export class BathroomScene {
 
   private build(model: SceneModel): Built {
     const { room, plan, fixtures, style, addOns } = model;
-    const kit = STYLE_KITS[style];
+    const kit = mergeKit(STYLE_KITS[style], model.palette);
     const L = room.lengthInches * IN;
     const W = room.widthInches * IN;
     const H = room.heightInches * IN;

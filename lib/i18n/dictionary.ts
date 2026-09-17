@@ -996,6 +996,12 @@ export const hi: Record<string, string> = {
   "Nearest within 15 km": "15 किमी के भीतर निकटतम",
   "Across the city": "पूरे शहर में",
 
+  /* ── studio — 3D (WebGL) view ───────────────────────────────────────── */
+  "Loading 3D…": "3D लोड हो रहा है…",
+  "3D view of your bathroom — drag to rotate, scroll to zoom":
+    "आपके बाथरूम का 3D दृश्य — घुमाने के लिए खींचें, ज़ूम के लिए स्क्रॉल करें",
+  "3D view unavailable — showing the 2D plan": "3D दृश्य उपलब्ध नहीं — 2D प्लान दिखा रहे हैं",
+
   /* ── studio — comments (M7 collaboration) ───────────────────────────── */
   "Comments": "टिप्पणियाँ",
   "Member": "सदस्य",

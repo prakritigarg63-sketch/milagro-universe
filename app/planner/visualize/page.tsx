@@ -8,7 +8,7 @@ import { useEnsureProject } from "@/lib/planner/store/use-ensure-project";
 import { StudioShell } from "@/components/planner/studio/StudioShell";
 import { StepFooter } from "@/components/planner/studio/StepFooter";
 import { RoomPlan } from "@/components/planner/studio/RoomPlan";
-import { RoomView3D, type ViewPalette } from "@/components/planner/studio/RoomView3D";
+import { Room3DWebGL } from "@/components/planner/studio/Room3DWebGL";
 import { FINISH_GROUPS, optionFor } from "@/lib/planner/studio/finishes";
 import type { FinishSurface, Finishes } from "@/lib/planner/types";
 
@@ -34,22 +34,6 @@ export default function VisualizePage() {
   const finishes: Finishes = useMemo(() => project?.finishes ?? {}, [project?.finishes]);
 
   /** Chosen finishes → the colours the view renders with. */
-  const palette: ViewPalette = useMemo(() => {
-    const floor = optionFor("floor", finishes.floor) ?? optionFor("tiles", finishes.tiles);
-    const walls = optionFor("walls", finishes.walls);
-    return {
-      floor: floor?.color,
-      floorAccent: floor?.accent,
-      walls: walls?.color,
-      wallsAccent: walls?.accent,
-      vanity: optionFor("vanity", finishes.vanity)?.color,
-      shower: optionFor("shower", finishes.shower)?.color,
-      wc: optionFor("wc", finishes.wc)?.color,
-      almirah: optionFor("vanity", finishes.vanity)?.accent,
-      light: optionFor("lighting", finishes.lighting)?.color,
-    };
-  }, [finishes]);
-
   const isRenovation = project?.projectType === "renovation";
   const chosenCount = Object.keys(finishes).length;
   const openGroup = FINISH_GROUPS.find((g) => g.surface === openSurface) ?? null;
@@ -101,14 +85,7 @@ export default function VisualizePage() {
           {/* ── The room ─────────────────────────────────────────────── */}
           <div className="mt-4 overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-8">
             {view === "3d" ? (
-              <RoomView3D
-                room={room}
-                fixtures={fixtures}
-                selectedIndex={null}
-                doorDetail={project.doorDetail}
-                palette={showBefore ? {} : palette}
-                showcase
-              />
+              <Room3DWebGL project={project} bare={showBefore} />
             ) : (
               <RoomPlan
                 room={room}

@@ -10,9 +10,8 @@ import { useEnsureProject } from "@/lib/planner/store/use-ensure-project";
 import { useStudioStore } from "@/lib/planner/studio/studio-store";
 import { StudioShell } from "@/components/planner/studio/StudioShell";
 import { StepFooter } from "@/components/planner/studio/StepFooter";
-import { RoomView3D, type ViewPalette } from "@/components/planner/studio/RoomView3D";
+import { Room3DWebGL } from "@/components/planner/studio/Room3DWebGL";
 import { RoomPlan } from "@/components/planner/studio/RoomPlan";
-import { optionFor } from "@/lib/planner/studio/finishes";
 import { formatLakh, projectRange } from "@/lib/planner/studio/materials";
 import { openPrintablePlan } from "@/lib/planner/studio/printable";
 import { SharePanel } from "@/components/planner/studio/SharePanel";
@@ -51,18 +50,6 @@ export default function PlanPage() {
   const estimate = project?.estimate ?? null;
   const range = estimate ? projectRange(estimate.totalCostInr) : null;
   const finishes = useMemo(() => project?.finishes ?? {}, [project?.finishes]);
-
-  const palette: ViewPalette = {
-    floor: optionFor("floor", finishes.floor)?.color,
-    floorAccent: optionFor("floor", finishes.floor)?.accent,
-    walls: optionFor("walls", finishes.walls)?.color,
-    wallsAccent: optionFor("walls", finishes.walls)?.accent,
-    vanity: optionFor("vanity", finishes.vanity)?.color,
-    shower: optionFor("shower", finishes.shower)?.color,
-    wc: optionFor("wc", finishes.wc)?.color,
-    almirah: optionFor("vanity", finishes.vanity)?.accent,
-    light: optionFor("lighting", finishes.lighting)?.color,
-  };
 
   /** What is actually decided, so the checklist cannot claim more than is true. */
   const checklist = [
@@ -134,15 +121,8 @@ export default function PlanPage() {
       {room && (
         <>
           <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
-            <div className="flex items-center overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-7">
-              <RoomView3D
-                room={room}
-                fixtures={fixtures}
-                selectedIndex={null}
-                doorDetail={project.doorDetail}
-                palette={palette}
-                showcase
-              />
+            <div className="overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-7">
+              <Room3DWebGL project={project} />
             </div>
             {/* The plan is wider than it is tall, so it would sit at the top of a
                 stretched grid cell with a void beneath it. Centre it instead. */}
