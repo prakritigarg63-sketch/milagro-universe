@@ -52,3 +52,61 @@ export interface ProcurementData {
   dealers: Dealer[];
   cities: Cities;
 }
+
+/* ── Pricing tables (Section B) ─────────────────────────────────────────── */
+
+export type PriceUnit = "pc" | "ft" | "box" | "bag" | "cft" | "sqft" | "kg";
+
+export interface PriceRow {
+  unit: PriceUnit;
+  value: number;
+  mid: number;
+  premium: number;
+  est: boolean;
+  src: string[];
+}
+
+export type Prices = Record<string, PriceRow>;
+
+export interface BrandTierSet {
+  t1: string[];
+  t2: string[];
+  t3: string[];
+}
+
+/** The four brand-selectable trades (pipes are excluded — not brand-selected). */
+export type Trade = "sanitary" | "tiles" | "electrical" | "wiring";
+
+export interface Brands {
+  byItem: Record<string, BrandTierSet>;
+  byTrade: Record<Trade, BrandTierSet>;
+}
+
+export type LabourTrade = "plumber" | "electrician" | "tilerFloor" | "tilerWall" | "mason";
+
+export interface LabourRow {
+  unit: string;
+  rates: Record<LabourBand, number>;
+  est: Record<LabourBand, boolean>;
+  src: string[];
+}
+
+export type Labour = Record<LabourTrade, LabourRow>;
+
+export type TileColour = "white" | "beige" | "grey" | "wood" | "dark";
+export type TileFinish = "glossy" | "matt";
+
+export interface TileLooks {
+  colours: Record<TileColour, { base: string }>;
+  finishes: TileFinish[];
+}
+
+/** The full injected data object the pricing engine receives. */
+export interface PlannerData {
+  prices: Prices;
+  brands: Brands;
+  labour: Labour;
+  cities: Cities;
+  dealers: Dealer[];
+  tileLooks: TileLooks;
+}

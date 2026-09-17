@@ -1,0 +1,95 @@
+{
+  "plumber": {
+    "unit": "point",
+    "rates": {
+      "delhi": 780,
+      "mumbai": 880,
+      "bengaluru": 780,
+      "other": 680
+    },
+    "est": {
+      "delhi": true,
+      "mumbai": true,
+      "bengaluru": true,
+      "other": false
+    },
+    "src": [
+      "https://www.studiomatrx.org/guides/bathroom-construction-cost-india",
+      "https://solve24.in/blog/plumber-charges-list-india-2026-complete-price-guide"
+    ]
+  },
+  "electrician": {
+    "unit": "point",
+    "rates": {
+      "delhi": 630,
+      "mumbai": 690,
+      "bengaluru": 630,
+      "other": 550
+    },
+    "est": {
+      "delhi": true,
+      "mumbai": true,
+      "bengaluru": true,
+      "other": false
+    },
+    "src": [
+      "https://www.dial4trade.com/knowledgebase/electrician-charges-per-point-in-india-2026-|-wiring-and-labour-cost-guide.htm",
+      "https://www.houseyog.com/blog/electrical-wiring-cost-per-sq-ft-in-india-complete-guide/"
+    ]
+  },
+  "tilerFloor": {
+    "unit": "sqft",
+    "rates": {
+      "delhi": 68,
+      "mumbai": 80,
+      "bengaluru": 80,
+      "other": 38
+    },
+    "est": {
+      "delhi": false,
+      "mumbai": false,
+      "bengaluru": false,
+      "other": false
+    },
+    "src": [
+      "https://gharkabudget.com/articles/tile-laying-cost-per-sqft-2026/",
+      "https://solve24.in/prices/mason-in-delhi"
+    ]
+  },
+  "tilerWall": {
+    "unit": "sqft",
+    "rates": {
+      "delhi": 48,
+      "mumbai": 48,
+      "bengaluru": 48,
+      "other": 48
+    },
+    "est": {
+      "delhi": true,
+      "mumbai": true,
+      "bengaluru": true,
+      "other": false
+    },
+    "src": [
+      "https://gharkabudget.com/articles/tile-laying-cost-per-sqft-2026/"
+    ]
+  },
+  "mason": {
+    "unit": "day",
+    "rates": {
+      "delhi": 1150,
+      "mumbai": 1000,
+      "bengaluru": 1000,
+      "other": 1000
+    },
+    "est": {
+      "delhi": false,
+      "mumbai": true,
+      "bengaluru": true,
+      "other": false
+    },
+    "src": [
+      "https://solve24.in/prices/mason-in-delhi"
+    ]
+  }
+}

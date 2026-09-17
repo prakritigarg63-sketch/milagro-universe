@@ -1,0 +1,656 @@
+{
+  "byItem": {
+    "visibleWc": {
+      "t1": [
+        "Kohler",
+        "Jaquar"
+      ],
+      "t2": [
+        "Jaquar",
+        "Hindware"
+      ],
+      "t3": [
+        "Cera",
+        "Parryware"
+      ]
+    },
+    "concealedCistern": {
+      "t1": [
+        "Geberit",
+        "Grohe"
+      ],
+      "t2": [
+        "Grohe",
+        "Hindware"
+      ],
+      "t3": [
+        "Hindware"
+      ]
+    },
+    "visibleBasin": {
+      "t1": [
+        "Kohler"
+      ],
+      "t2": [
+        "Cera",
+        "Hindware"
+      ],
+      "t3": [
+        "Hindware",
+        "Parryware"
+      ]
+    },
+    "visibleBasinTap": {
+      "t1": [
+        "Grohe",
+        "Kohler"
+      ],
+      "t2": [
+        "Jaquar"
+      ],
+      "t3": [
+        "Cera"
+      ]
+    },
+    "concealedMixerBody": {
+      "t1": [
+        "Grohe",
+        "Kohler"
+      ],
+      "t2": [
+        "Jaquar"
+      ],
+      "t3": [
+        "Cera",
+        "Essco"
+      ]
+    },
+    "visibleMixerHandle": {
+      "t1": [
+        "Grohe",
+        "Kohler"
+      ],
+      "t2": [
+        "Jaquar"
+      ],
+      "t3": [
+        "Cera",
+        "Essco"
+      ]
+    },
+    "visibleHealthFaucet": {
+      "t1": [
+        "Kohler",
+        "Grohe"
+      ],
+      "t2": [
+        "Grohe",
+        "Jaquar"
+      ],
+      "t3": [
+        "Cera",
+        "Essco",
+        "Jaquar"
+      ]
+    },
+    "visibleAngleValve": {
+      "t1": [
+        "Jaquar"
+      ],
+      "t2": [
+        "Hindware"
+      ],
+      "t3": [
+        "Cera"
+      ]
+    },
+    "visibleBottleTrap": {
+      "t1": [
+        "Jaquar"
+      ],
+      "t2": [
+        "Cera"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "visibleSeatCover": {
+      "t1": [
+        "Jaquar"
+      ],
+      "t2": [
+        "Hindware"
+      ],
+      "t3": [
+        "Cera",
+        "Parryware"
+      ]
+    },
+    "visibleOverheadShower": {
+      "t1": [
+        "Kohler"
+      ],
+      "t2": [
+        "Jaquar"
+      ],
+      "t3": [
+        "Cera",
+        "Hindware"
+      ]
+    },
+    "visibleBathSpout": {
+      "t1": [
+        "Kohler"
+      ],
+      "t2": [
+        "Jaquar"
+      ],
+      "t3": [
+        "Cera",
+        "Hindware"
+      ]
+    },
+    "visibleBathtub": {
+      "t1": [
+        "Kohler"
+      ],
+      "t2": [
+        "Hindware"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "visibleGlassPartition": {
+      "t1": [
+        "Local / unbranded"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "visibleCurtainRod": {
+      "t1": [
+        "SITTELLA"
+      ],
+      "t2": [
+        "Story@Home",
+        "Renva"
+      ],
+      "t3": [
+        "Amazon Basics",
+        "Deco Essential"
+      ]
+    },
+    "visibleMirror": {
+      "t1": [
+        "Jaquar"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "SDG",
+        "Amazon Basics"
+      ]
+    },
+    "visibleTowelRod": {
+      "t1": [
+        "Jaquar"
+      ],
+      "t2": [
+        "Cera",
+        "Plantex"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "concealedPipe": {
+      "t1": [
+        "Astral"
+      ],
+      "t2": [
+        "Ashirvad",
+        "Supreme"
+      ],
+      "t3": [
+        "Finolex",
+        "Prince"
+      ]
+    },
+    "concealedWaste": {
+      "t1": [
+        "Astral"
+      ],
+      "t2": [
+        "Supreme",
+        "Finolex"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "concealedStopcock": {
+      "t1": [
+        "Jaquar",
+        "Kohler"
+      ],
+      "t2": [
+        "Cera",
+        "Parryware"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "concealedFloorDrain": {
+      "t1": [
+        "Jaquar",
+        "Ruhe"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "concealedPtrap": {
+      "t1": [
+        "Jaquar",
+        "Ruhe"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "concealedElbow": {
+      "t1": [
+        "Astral",
+        "Ashirvad"
+      ],
+      "t2": [
+        "Supreme",
+        "Finolex"
+      ],
+      "t3": [
+        "Local / unbranded",
+        "Prince"
+      ]
+    },
+    "concealedClamp": {
+      "t1": [
+        "Astral"
+      ],
+      "t2": [
+        "Ashirvad",
+        "Supreme"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "concealedInlet": {
+      "t1": [
+        "Zoloto"
+      ],
+      "t2": [
+        "Sant",
+        "Leader"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "floorTiles_12x12": {
+      "t1": [
+        "Johnson",
+        "Kajaria",
+        "RAK Ceramics"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany"
+      ],
+      "t3": [
+        "Asian Granito",
+        "Local / unbranded"
+      ]
+    },
+    "floorTiles_12x18": {
+      "t1": [
+        "Johnson",
+        "Kajaria",
+        "RAK Ceramics"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany"
+      ],
+      "t3": [
+        "Asian Granito",
+        "Local / unbranded"
+      ]
+    },
+    "floorTiles_24x24": {
+      "t1": [
+        "Johnson",
+        "Kajaria",
+        "RAK Ceramics"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany"
+      ],
+      "t3": [
+        "Asian Granito",
+        "Local / unbranded"
+      ]
+    },
+    "wallTiles_12x12": {
+      "t1": [
+        "Johnson",
+        "Kajaria"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wallTiles_12x18": {
+      "t1": [
+        "Johnson",
+        "Kajaria"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wallTiles_24x24": {
+      "t1": [
+        "Johnson",
+        "Kajaria"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "cement": {
+      "t1": [
+        "UltraTech",
+        "ACC"
+      ],
+      "t2": [
+        "Ambuja",
+        "Dalmia"
+      ],
+      "t3": [
+        "JK Super"
+      ]
+    },
+    "sand": {
+      "t1": [
+        "Local / unbranded"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "adhesive": {
+      "t1": [
+        "MYK Laticrete"
+      ],
+      "t2": [
+        "MYK Laticrete"
+      ],
+      "t3": [
+        "Roff",
+        "Kajaria"
+      ]
+    },
+    "grout": {
+      "t1": [
+        "MYK Laticrete"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "geyserName": {
+      "t1": [
+        "AO Smith",
+        "Havells",
+        "Racold"
+      ],
+      "t2": [
+        "Crompton",
+        "V-Guard",
+        "Bajaj"
+      ],
+      "t3": [
+        "Haier",
+        "Faber"
+      ]
+    },
+    "mirrorName": {
+      "t1": [
+        "Toyo India",
+        "K4Glass"
+      ],
+      "t2": [
+        "COMTO"
+      ],
+      "t3": [
+        "ARYAANSH"
+      ]
+    },
+    "lightsName": {
+      "t1": [
+        "Havells"
+      ],
+      "t2": [
+        "Crompton",
+        "Bajaj"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "fanName": {
+      "t1": [
+        "Havells"
+      ],
+      "t2": [
+        "Crompton"
+      ],
+      "t3": [
+        "Bajaj"
+      ]
+    },
+    "wireGeyser": {
+      "t1": [
+        "Polycab"
+      ],
+      "t2": [
+        "Polycab"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wireMirror": {
+      "t1": [
+        "Polycab"
+      ],
+      "t2": [
+        "Finolex",
+        "Polycab"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wireLight": {
+      "t1": [
+        "Polycab"
+      ],
+      "t2": [
+        "Finolex",
+        "Polycab"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wireFan": {
+      "t1": [
+        "Polycab"
+      ],
+      "t2": [
+        "Finolex",
+        "Polycab"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wireConduit": {
+      "t1": [
+        "Local / unbranded"
+      ],
+      "t2": [
+        "Local / unbranded"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "wireBoxes": {
+      "t1": [
+        "Local / unbranded"
+      ],
+      "t2": [
+        "Havells"
+      ],
+      "t3": [
+        "Local / unbranded"
+      ]
+    },
+    "switchesSockets": {
+      "t1": [
+        "Legrand",
+        "MK",
+        "Norisys"
+      ],
+      "t2": [
+        "Havells",
+        "Crabtree",
+        "Anchor"
+      ],
+      "t3": [
+        "Roma",
+        "Gold Medal"
+      ]
+    }
+  },
+  "byTrade": {
+    "sanitary": {
+      "t1": [
+        "Kohler",
+        "Grohe",
+        "Jaquar"
+      ],
+      "t2": [
+        "Jaquar",
+        "Hindware",
+        "Cera"
+      ],
+      "t3": [
+        "Cera",
+        "Hindware",
+        "Parryware"
+      ]
+    },
+    "tiles": {
+      "t1": [
+        "Johnson",
+        "Kajaria",
+        "RAK Ceramics",
+        "UltraTech"
+      ],
+      "t2": [
+        "Kajaria",
+        "Somany",
+        "Ambuja",
+        "MYK Laticrete"
+      ],
+      "t3": [
+        "Asian Granito",
+        "JK Super",
+        "Roff"
+      ]
+    },
+    "electrical": {
+      "t1": [
+        "Havells",
+        "AO Smith",
+        "Toyo India",
+        "Racold"
+      ],
+      "t2": [
+        "Crompton",
+        "Bajaj",
+        "V-Guard",
+        "COMTO"
+      ],
+      "t3": [
+        "Bajaj",
+        "Haier",
+        "ARYAANSH"
+      ]
+    },
+    "wiring": {
+      "t1": [
+        "Polycab",
+        "Legrand",
+        "MK",
+        "Norisys"
+      ],
+      "t2": [
+        "Havells",
+        "Finolex",
+        "Crabtree",
+        "Anchor"
+      ],
+      "t3": [
+        "Roma",
+        "Gold Medal"
+      ]
+    }
+  }
+}

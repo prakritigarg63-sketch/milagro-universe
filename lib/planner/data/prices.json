@@ -1,0 +1,545 @@
+{
+  "visibleWc": {
+    "unit": "pc",
+    "value": 7500,
+    "mid": 11500,
+    "premium": 15500,
+    "est": true,
+    "src": [
+      "https://dir.indiamart.com/impcat/kohler-wall-hung-toilets.html",
+      "https://decure.in/collections/jaquar-wall-mounted-closet-wcs",
+      "https://dir.indiamart.com/impcat/jaquar-wall-hung-toilets.html",
+      "https://www.irely.in/bath/sanitaryware/wall-hung-closet-with-cistern.html",
+      "https://www.housegyan.com/blog/best-sanitaryware-brands-in-india"
+    ]
+  },
+  "concealedCistern": {
+    "unit": "pc",
+    "value": 2500,
+    "mid": 6700,
+    "premium": 10800,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/geberit-concealed-flush-tank-22465056312.html",
+      "https://www.flipkart.com/grohe-flushing-concealed-cistern-push-plat-dual-flush-tank/p/itm6b35c9936172f",
+      "https://www.indiamart.com/proddetail/concealed-flushing-cistern-19063820373.html",
+      "https://hindware.com/product-category/sanitaryware/cisterns/"
+    ]
+  },
+  "visibleBasin": {
+    "unit": "pc",
+    "value": 1700,
+    "mid": 4050,
+    "premium": 10250,
+    "est": false,
+    "src": [
+      "https://www.amazon.in/kohler-table-top-wash-basin/s?k=kohler+table+top+wash+basin&page=3",
+      "https://www.amazon.in/cera-wash-basin/s?k=cera+wash+basin",
+      "https://dir.indiamart.com/impcat/hindware-wash-basin.html"
+    ]
+  },
+  "visibleBasinTap": {
+    "unit": "pc",
+    "value": 410,
+    "mid": 1800,
+    "premium": 2600,
+    "est": true,
+    "src": [
+      "https://www.amazon.in/GROHE-32813000-BauFlow-Pillar-Tap-Silver/dp/B07CSXYP6M",
+      "https://www.moglix.com/brands/kohler/plumbing/faucets/basin-taps/119191100",
+      "https://www.flipkart.com/jaquar-pillar-cock-continental-basin-mixer-faucet/p/itmf70963a5c1275",
+      "https://www.moglix.com/brands/cera/plumbing/faucets/basin-taps/119191100"
+    ]
+  },
+  "concealedMixerBody": {
+    "unit": "pc",
+    "value": 3400,
+    "mid": 7150,
+    "premium": 12400,
+    "est": true,
+    "src": [
+      "https://www.flipkart.com/grohe-wall-mounted-concealed-body-2-hole-basin-mixers-mixer-faucet/p/itm60daa42bbd2b5"
+    ]
+  },
+  "visibleMixerHandle": {
+    "unit": "pc",
+    "value": 2250,
+    "mid": 4000,
+    "premium": 6950,
+    "est": true,
+    "src": [
+      "https://www.houseyog.com/blog/bathroom-fitting-cost-in-india-jaquar-hindware-kohler-price-installation-guide/",
+      "https://www.padmavaticeramics.com/guides/jaquar-diverter-price-guide"
+    ]
+  },
+  "visibleHealthFaucet": {
+    "unit": "pc",
+    "value": 1400,
+    "mid": 2750,
+    "premium": 4800,
+    "est": false,
+    "src": [
+      "https://www.padmavaticeramics.com/guides/health-faucet-guide-india",
+      "https://www.flipkart.com/jaquar-jet-spray-chrome-8mm-dia-1-meter-long-flexible-tube-wall-hook-health-faucet/p/itmc3c0418f4dcf8"
+    ]
+  },
+  "visibleAngleValve": {
+    "unit": "pc",
+    "value": 600,
+    "mid": 1050,
+    "premium": 1300,
+    "est": true,
+    "src": [
+      "https://www.flipkart.com/jaquar-angle-valve-florentine-faucet-cock/p/itm2fc1ccdf2f79e",
+      "https://dir.indiamart.com/impcat/brass-angle-valve.html",
+      "https://mykit.in/cera/anglevalve"
+    ]
+  },
+  "visibleBottleTrap": {
+    "unit": "pc",
+    "value": 470,
+    "mid": 1000,
+    "premium": 1250,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/jaquar-bottle-trap-22207007130.html",
+      "https://decure.in/products/cera-12-inch-bottle-trap-ultra-f8060406-chrome"
+    ]
+  },
+  "visibleSeatCover": {
+    "unit": "pc",
+    "value": 710,
+    "mid": 3500,
+    "premium": 4000,
+    "est": true,
+    "src": [
+      "https://jkcemart.in/best-toilet-seat-cover-brands-india-2026",
+      "https://jkcemart.in/best-material-toilet-seat-covers-india-2026/",
+      "https://www.indiamart.com/proddetail/jaquar-hindware-cera-parryware-round-plastic-toilet-seat-covers-2854575461491.html"
+    ]
+  },
+  "visibleOverheadShower": {
+    "unit": "pc",
+    "value": 3000,
+    "mid": 6000,
+    "premium": 12500,
+    "est": true,
+    "src": [
+      "https://www.kohler.co.in/p/showers/shop-rainheads",
+      "https://www.houseyog.com/blog/bathroom-fitting-cost-in-india-jaquar-hindware-kohler-price-installation-guide/",
+      "https://www.jaquar.com/en/rain-showers"
+    ]
+  },
+  "visibleBathSpout": {
+    "unit": "pc",
+    "value": 1000,
+    "mid": 2000,
+    "premium": 6500,
+    "est": true,
+    "src": [
+      "https://www.houseyog.com/blog/bathroom-fitting-cost-in-india-jaquar-hindware-kohler-price-installation-guide/"
+    ]
+  },
+  "visibleBathtub": {
+    "unit": "pc",
+    "value": 24000,
+    "mid": 51000,
+    "premium": 75000,
+    "est": true,
+    "src": [
+      "https://www.kohler.co.in/browse/Bathroom/Bathing",
+      "https://m.indiamart.com/impcat/hindware-bath-tubs.html"
+    ]
+  },
+  "visibleGlassPartition": {
+    "unit": "sqft",
+    "value": 490,
+    "mid": 800,
+    "premium": 1600,
+    "est": false,
+    "src": [
+      "https://woodenmax.in/glass-shower-partition-price",
+      "https://woodenmax.in/products/shower-partitions"
+    ]
+  },
+  "visibleCurtainRod": {
+    "unit": "pc",
+    "value": 340,
+    "mid": 500,
+    "premium": 700,
+    "est": false,
+    "src": [
+      "https://www.amazon.in/Curtain-Rods/s?k=Curtain+Rods",
+      "https://sunvibe.in/collections/curtain-rods",
+      "https://www.amazon.in/Shower-Curtain-Rods/b?ie=UTF8&node=1380521031"
+    ]
+  },
+  "visibleMirror": {
+    "unit": "pc",
+    "value": 1100,
+    "mid": 2000,
+    "premium": 2450,
+    "est": true,
+    "src": [
+      "https://www.bharatironworks.com/jaquar-bath-accessories.html",
+      "https://www.flipkart.com/comto-28x28-inch-backlit-led-day-light-bathroom-vanity-mirror-anti-fog-adjustable/p/itmd4d52bffa4055",
+      "https://www.amazon.in/SDG-18-24-Mirror-Bathroom/dp/B08KR7G82C"
+    ]
+  },
+  "visibleTowelRod": {
+    "unit": "pc",
+    "value": 280,
+    "mid": 600,
+    "premium": 1500,
+    "est": true,
+    "src": [
+      "https://www.bharatironworks.com/jaquar-bath-accessories.html",
+      "https://www.kavebathcreation.in/ss-304-singal-robe-hook-8359081.html"
+    ]
+  },
+  "concealedPipe": {
+    "unit": "ft",
+    "value": 33,
+    "mid": 39,
+    "premium": 47,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/ashirvad-1-inch-cpvc-pipe-3-m-16105398433.html"
+    ]
+  },
+  "concealedWaste": {
+    "unit": "ft",
+    "value": 30,
+    "mid": 43,
+    "premium": 52,
+    "est": true,
+    "src": [
+      "https://m.indiamart.com/aqsaelectricals"
+    ]
+  },
+  "concealedStopcock": {
+    "unit": "pc",
+    "value": 350,
+    "mid": 550,
+    "premium": 1150,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/concealed-stop-cock-26756695433.html",
+      "https://www.moglix.com/jaquar-15mm-brass-chrome-finish-concealed-stop-cock-body-ald-083/mp/msne5n8670jykl",
+      "https://www.cera-india.com/cera/faucets-showers-faucets-quarter-turn-range-vivana/concealed-stop-cock-15mm"
+    ]
+  },
+  "concealedFloorDrain": {
+    "unit": "pc",
+    "value": 140,
+    "mid": 730,
+    "premium": 860,
+    "est": false,
+    "src": [
+      "https://www.indiamart.com/proddetail/tile-insert-floor-drain-drain-with-anti-cockroach-and-anti-foul-trap-19363505862.html",
+      "https://ruheindia.com/collections/square-drain-with-trap",
+      "https://www.indiamart.com/proddetail/stainless-steel-anti-cockroach-floor-drain-21045906573.html"
+    ]
+  },
+  "concealedPtrap": {
+    "unit": "pc",
+    "value": 140,
+    "mid": 730,
+    "premium": 860,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/tile-insert-floor-drain-drain-with-anti-cockroach-and-anti-foul-trap-19363505862.html",
+      "https://ruheindia.com/collections/square-drain-with-trap"
+    ]
+  },
+  "concealedElbow": {
+    "unit": "pc",
+    "value": 90,
+    "mid": 110,
+    "premium": 120,
+    "est": true,
+    "src": [
+      "https://www.amantradingcompany.net.in/astral-cpvc-tee-10799792.html",
+      "https://www.tradeindia.com/products/astral-cpvc-clamp-c10799809.html"
+    ]
+  },
+  "concealedClamp": {
+    "unit": "pc",
+    "value": 9,
+    "mid": 10,
+    "premium": 12,
+    "est": true,
+    "src": [
+      "https://www.tradeindia.com/products/astral-cpvc-clamp-c10799809.html"
+    ]
+  },
+  "concealedInlet": {
+    "unit": "pc",
+    "value": 100,
+    "mid": 250,
+    "premium": 410,
+    "est": true,
+    "src": [
+      "https://www.tradeindia.com/products/1-2-inch-size-zoloto-brass-ball-valve-for-industrial-usage-8354593.html",
+      "https://www.pipelineproductsindia.com/pd/ball-valve/zoloto-forged-brass-ball-valve-screwed/ZFBBV-1008B15",
+      "https://www.indiamart.com/proddetail/zoloto-forged-brass-ball-valve-19936438512.html"
+    ]
+  },
+  "cement": {
+    "unit": "bag",
+    "value": 380,
+    "mid": 390,
+    "premium": 410,
+    "est": false,
+    "src": [
+      "https://www.comaron.com/blog/cement-price-today-india-2026",
+      "https://www.plumint.com/blog-details/cement-price-today-ultratech-acc-ambuja-dalmia-ramco-jk-super-50kg/",
+      "https://civiconcepts.com/blog/cement-price-list-today-per-kg",
+      "https://www.ofbusiness.com/category/building-construction"
+    ]
+  },
+  "sand": {
+    "unit": "cft",
+    "value": 35,
+    "mid": 58,
+    "premium": 140,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/badarpur-sand-2282577955.html",
+      "https://varnahomes.in/blog/sand-price-bangalore/",
+      "https://infralens.in/prices/aggregates/bangalore",
+      "https://www.houseyog.com/blog/sand-cost-per-ton-india-river-vs-m-sand/"
+    ]
+  },
+  "adhesive": {
+    "unit": "bag",
+    "value": 200,
+    "mid": 270,
+    "premium": 350,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/myk-laticrete-305-tiles-adhesive-pack-20kg-22346070791.html",
+      "https://home-run.co/pages/price-list/myk-laticrete"
+    ]
+  },
+  "grout": {
+    "unit": "kg",
+    "value": 83,
+    "mid": 120,
+    "premium": 780,
+    "est": true,
+    "src": [
+      "https://dir.indiamart.com/bengaluru/epoxy-grout.html"
+    ]
+  },
+  "geyserName": {
+    "unit": "pc",
+    "value": 7200,
+    "mid": 7500,
+    "premium": 9500,
+    "est": false,
+    "src": [
+      "https://pricee.com/water-geysers/25l-water-geysers-products-price-in-india",
+      "https://www.amazon.in/Storage-Water-Heaters/b?ie=UTF8&node=4375457031",
+      "https://pricee.com/water-geysers/haier-water-geysers-products-price-in-india"
+    ]
+  },
+  "mirrorName": {
+    "unit": "pc",
+    "value": 3500,
+    "mid": 7000,
+    "premium": 11500,
+    "est": true,
+    "src": [
+      "https://www.toyoindia.in/mirror/anti-fog-mirrors/",
+      "https://k4glass.com/product/oval-led-wall-mounted-bathroom-vanity-mirror-with-anti-fog-and-dimmable-3k-4k-6k-led-lights/",
+      "https://www.flipkart.com/comto-28x28-inch-backlit-led-day-light-bathroom-vanity-mirror-anti-fog-adjustable/p/itmd4d52bffa4055",
+      "https://www.flipkart.com/aryaansh-led-illuminated-bathroom-mirror-round-anti-fog-technology-18-inch-lighted/p/itm616e5c32c2b8c"
+    ]
+  },
+  "lightsName": {
+    "unit": "pc",
+    "value": 330,
+    "mid": 450,
+    "premium": 630,
+    "est": true,
+    "src": [
+      "https://havells.com/lighting/led-panels.html",
+      "https://dir.indiamart.com/impcat/havells-panel-light/wattage-15w-q15025982/",
+      "https://www.crompton.co.in/collections/ceiling-lights/bathroom-lights",
+      "https://www.ledlightsinindia.com/information/led-light-prices-in-india"
+    ]
+  },
+  "fanName": {
+    "unit": "pc",
+    "value": 1850,
+    "mid": 2000,
+    "premium": 3500,
+    "est": true,
+    "src": [
+      "https://havells.com/fans/domestic-exhaust-fans.html",
+      "https://www.amazon.in/havells-exhaust-fan-6-inch/s?k=havells+exhaust+fan+6+inch",
+      "https://www.smartprix.com/fans/exhaust_fan-type",
+      "https://www.bajajelectricals.com/collections/6-inch-exhaust-fan"
+    ]
+  },
+  "wireGeyser": {
+    "unit": "ft",
+    "value": 17,
+    "mid": 32,
+    "premium": 68,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/polycab-3-core-copper-armoured-cable-2-5-sq-mm-22572855391.html",
+      "https://www.indiamart.com/proddetail/polycab-2-5-sq-mm-3-core-100-mtr-copper-flexible-wire-25621730891.html"
+    ]
+  },
+  "wireMirror": {
+    "unit": "ft",
+    "value": 4,
+    "mid": 4,
+    "premium": 5,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/finolex-1-5-sqmm-house-wire-15133231955.html",
+      "https://istika.in/blog/buy_electrical_wires_online:_updated_price_list_of_havells__polycab___finolex_in_india"
+    ]
+  },
+  "wireLight": {
+    "unit": "ft",
+    "value": 4,
+    "mid": 4,
+    "premium": 5,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/finolex-1-5-sqmm-house-wire-15133231955.html",
+      "https://istika.in/blog/buy_electrical_wires_online:_updated_price_list_of_havells__polycab___finolex_in_india"
+    ]
+  },
+  "wireFan": {
+    "unit": "ft",
+    "value": 4,
+    "mid": 4,
+    "premium": 5,
+    "est": true,
+    "src": [
+      "https://www.indiamart.com/proddetail/finolex-1-5-sqmm-house-wire-15133231955.html",
+      "https://istika.in/blog/buy_electrical_wires_online:_updated_price_list_of_havells__polycab___finolex_in_india"
+    ]
+  },
+  "wireConduit": {
+    "unit": "ft",
+    "value": 3,
+    "mid": 5,
+    "premium": 6,
+    "est": true,
+    "src": [
+      "https://www.tradeindia.com/products/20mm-pvc-conduit-pipe-c8550605.html",
+      "https://www.indiamart.com/proddetail/20mm-pvc-conduit-pipe-13221174633.html",
+      "https://www.hyperelectricals.in/product/29042382/PVC-Electrical-Conduit-Pipes-ISI-20mm--L-"
+    ]
+  },
+  "wireBoxes": {
+    "unit": "pc",
+    "value": 11,
+    "mid": 33,
+    "premium": 68,
+    "est": true,
+    "src": [
+      "https://www.somsonelectricalboxes.com/electrical-modular-box.html",
+      "https://www.ampkart.com/modular-switch-board/honeywell-mk-switches-sockets/honeywell-mk-metal-and-pvc-switch-box/",
+      "https://www.tradeindia.com/products/modular-pvc-concealed-box-8m-7169959.html"
+    ]
+  },
+  "switchesSockets": {
+    "unit": "pc",
+    "value": 37,
+    "mid": 67,
+    "premium": 69,
+    "est": true,
+    "src": [
+      "https://www.tradeindia.com/manufacturers/legrand-mcb.html",
+      "https://www.bestofelectricals.com/switches-and-automation/sockets",
+      "https://m.indiamart.com/proddetail/havells-crabtree-modular-switch-24806876655.html",
+      "https://www.tradeindia.com/manufacturers/roma-modular-switches.html"
+    ]
+  },
+  "floorTiles_12x12": {
+    "unit": "box",
+    "value": 530,
+    "mid": 830,
+    "premium": 1300,
+    "est": true,
+    "src": [
+      "https://www.comaron.com/blog/tiles-price-india-2026-ceramic-vitrified-marble-rates",
+      "https://buildingandinteriors.com/vitrified-tiles-rate-in-india-2026/",
+      "https://www.houseyog.com/blog/floor-tiling-cost-per-sqft-india/",
+      "https://www.panchaminteriors.com/vitrified-tiles-flooring-cost-kajaria-somany",
+      "https://ghartiles.online/floor-tiles-price-per-square-feet-2025/"
+    ]
+  },
+  "floorTiles_12x18": {
+    "unit": "box",
+    "value": 470,
+    "mid": 750,
+    "premium": 1150,
+    "est": true,
+    "src": [
+      "https://www.comaron.com/blog/tiles-price-india-2026-ceramic-vitrified-marble-rates",
+      "https://buildingandinteriors.com/vitrified-tiles-rate-in-india-2026/",
+      "https://www.houseyog.com/blog/floor-tiling-cost-per-sqft-india/",
+      "https://www.panchaminteriors.com/vitrified-tiles-flooring-cost-kajaria-somany",
+      "https://ghartiles.online/floor-tiles-price-per-square-feet-2025/"
+    ]
+  },
+  "floorTiles_24x24": {
+    "unit": "box",
+    "value": 840,
+    "mid": 1350,
+    "premium": 2050,
+    "est": true,
+    "src": [
+      "https://www.comaron.com/blog/tiles-price-india-2026-ceramic-vitrified-marble-rates",
+      "https://buildingandinteriors.com/vitrified-tiles-rate-in-india-2026/",
+      "https://www.houseyog.com/blog/floor-tiling-cost-per-sqft-india/",
+      "https://www.panchaminteriors.com/vitrified-tiles-flooring-cost-kajaria-somany",
+      "https://ghartiles.online/floor-tiles-price-per-square-feet-2025/"
+    ]
+  },
+  "wallTiles_12x12": {
+    "unit": "box",
+    "value": 400,
+    "mid": 1550,
+    "premium": 3250,
+    "est": true,
+    "src": [
+      "https://buildingandinteriors.com/bathroom-tiles-price-per-square-feet-in-india-top-brands-types/",
+      "https://m.indiamart.com/impcat/kajaria-wall-tiles.html",
+      "https://www.comaron.com/blog/kajaria-tiles-price"
+    ]
+  },
+  "wallTiles_12x18": {
+    "unit": "box",
+    "value": 360,
+    "mid": 1400,
+    "premium": 2950,
+    "est": true,
+    "src": [
+      "https://buildingandinteriors.com/bathroom-tiles-price-per-square-feet-in-india-top-brands-types/",
+      "https://m.indiamart.com/impcat/kajaria-wall-tiles.html",
+      "https://www.comaron.com/blog/kajaria-tiles-price"
+    ]
+  },
+  "wallTiles_24x24": {
+    "unit": "box",
+    "value": 640,
+    "mid": 2500,
+    "premium": 5200,
+    "est": true,
+    "src": [
+      "https://buildingandinteriors.com/bathroom-tiles-price-per-square-feet-in-india-top-brands-types/",
+      "https://m.indiamart.com/impcat/kajaria-wall-tiles.html",
+      "https://www.comaron.com/blog/kajaria-tiles-price"
+    ]
+  }
+}
