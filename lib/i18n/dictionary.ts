@@ -995,4 +995,12 @@ export const hi: Record<string, string> = {
   "Within 5 km": "5 किमी के भीतर",
   "Nearest within 15 km": "15 किमी के भीतर निकटतम",
   "Across the city": "पूरे शहर में",
+
+  /* ── studio — comments (M7 collaboration) ───────────────────────────── */
+  "Comments": "टिप्पणियाँ",
+  "Member": "सदस्य",
+  "No comments yet. Start the conversation.": "अभी कोई टिप्पणी नहीं। बातचीत शुरू करें।",
+  "Add a comment for your expert or homeowner…": "अपने विशेषज्ञ या गृहस्वामी के लिए टिप्पणी जोड़ें…",
+  "Posting…": "पोस्ट हो रहा है…",
+  "Post comment": "टिप्पणी पोस्ट करें",
 };

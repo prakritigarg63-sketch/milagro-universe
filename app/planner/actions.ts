@@ -1,8 +1,20 @@
 "use server";
 
 import { auth } from "@/auth";
-import { projectStore, type Invite, type MemberInfo } from "@/lib/db/projects";
+import { projectStore, type Invite, type MemberInfo, type ProjectComment } from "@/lib/db/projects";
+import { broadcastToProject } from "@/lib/db/realtime";
 import type { Project } from "@/lib/planner/types";
+
+/** A human-readable author name from the session user. */
+function displayName(u: {
+  firstName?: string | null;
+  lastName?: string | null;
+  name?: string | null;
+  email?: string | null;
+}): string {
+  const full = [u.firstName, u.lastName].filter(Boolean).join(" ").trim();
+  return full || u.name?.trim() || u.email?.split("@")[0] || "Member";
+}
 
 /**
  * Server actions for planner projects.
@@ -44,7 +56,10 @@ export async function createProjectAction(name: string): Promise<Project> {
 }
 
 export async function saveProjectAction(project: Project): Promise<Project> {
-  return projectStore.update(await requireUserId(), project.id, project);
+  const saved = await projectStore.update(await requireUserId(), project.id, project);
+  // Live co-edit: push the new state to any other editor on this project.
+  await broadcastToProject(saved.id, "update", saved);
+  return saved;
 }
 
 export async function deleteProjectAction(projectId: string): Promise<void> {
@@ -69,4 +84,23 @@ export async function createInviteAction(projectId: string): Promise<Invite> {
 /** Redeem an invite link; the caller (join page) is already authenticated. */
 export async function acceptInviteAction(token: string): Promise<string | null> {
   return projectStore.acceptInvite(await requireUserId(), token);
+}
+
+// ── Comments (M7) ────────────────────────────────────────────────────────────
+
+export async function listCommentsAction(projectId: string): Promise<ProjectComment[]> {
+  return projectStore.listComments(await requireUserId(), projectId);
+}
+
+export async function addCommentAction(projectId: string, body: string): Promise<ProjectComment> {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) throw new Error("Not authenticated");
+  const comment = await projectStore.addComment(userId, displayName(session.user), projectId, body);
+  await broadcastToProject(projectId, "comment", comment);
+  return comment;
+}
+
+export async function deleteCommentAction(commentId: string): Promise<void> {
+  return projectStore.deleteComment(await requireUserId(), commentId);
 }

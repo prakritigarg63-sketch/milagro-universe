@@ -16,6 +16,7 @@ import { optionFor } from "@/lib/planner/studio/finishes";
 import { formatLakh, projectRange } from "@/lib/planner/studio/materials";
 import { openPrintablePlan } from "@/lib/planner/studio/printable";
 import { SharePanel } from "@/components/planner/studio/SharePanel";
+import { CommentsThread } from "@/components/planner/collab/CommentsThread";
 
 /**
  * Screen 12 — the finished plan.
@@ -232,6 +233,14 @@ export default function PlanPage() {
               "This plan is a starting point for conversations with contractors and suppliers — not a construction drawing or a quote. Measurements, quantities and prices should all be confirmed on site.",
             )}
           </p>
+
+          {/* Collaboration: threaded comments for a saved project. A guest
+              (browser-only) project has no server id to attach a thread to. */}
+          {project && user && project.ownerId !== "guest" && (
+            <div className="mt-6 max-w-3xl">
+              <CommentsThread projectId={project.id} />
+            </div>
+          )}
 
           {shareOpen && project && (
             <SharePanel projectId={project.id} onClose={() => setShareOpen(false)} />
