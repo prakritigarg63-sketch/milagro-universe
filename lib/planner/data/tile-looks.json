@@ -1,0 +1,23 @@
+{
+  "colours": {
+    "white": {
+      "base": "#f2f0eb"
+    },
+    "beige": {
+      "base": "#d9c7a8"
+    },
+    "grey": {
+      "base": "#9a9ea3"
+    },
+    "wood": {
+      "base": "#a9794c"
+    },
+    "dark": {
+      "base": "#3b3f44"
+    }
+  },
+  "finishes": [
+    "glossy",
+    "matt"
+  ]
+}

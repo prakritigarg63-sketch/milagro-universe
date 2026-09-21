@@ -4,6 +4,8 @@
  * (imperial/metric) is a presentation concern handled at the edges.
  */
 
+import type { CityKey, TileColour, TileFinish } from "./data/types";
+
 export type Language = "en" | "hi";
 export type Theme = "light" | "dark";
 export type Unit = "imperial" | "metric";
@@ -290,6 +292,12 @@ export interface StudioFields {
   styleDirection?: StyleDirection;
   finishes?: Finishes;
   products?: ProductSelections;
+  /** Section B: one brand per trade the budget unlocks. */
+  tradeBrands?: BrandsByTrade;
+  /** Section B: tile look (colour family + finish). */
+  tileLook?: TileLookChoice;
+  /** Section B: location for labour rates. */
+  location?: LocationChoice;
 }
 
 /** Surfaces and elements the homeowner can restyle on the visualize screen. */
@@ -305,3 +313,30 @@ export type FinishSurface =
 
 /** Chosen option id per surface, e.g. { floor: "warmTravertine" }. */
 export type Finishes = Partial<Record<FinishSurface, string>>;
+
+/* ── Section B (pricing) additions. Optional on Project like the rest of
+   StudioFields, so older projects load. Stored in the project blob. ────────── */
+
+/** One chosen brand per brand-selectable trade (pipes are not brand-selected). */
+export interface BrandsByTrade {
+  sanitary: string | null;
+  tiles: string | null;
+  electrical: string | null;
+  wiring: string | null;
+}
+
+/** Tile look (colour family + finish), used by the researched pricing. */
+export interface TileLookChoice {
+  colour: TileColour | null;
+  finish: TileFinish | null;
+}
+
+export type LocationSource = "device" | "chip" | null;
+
+/** Captured on the estimate screen; drives the labour band. */
+export interface LocationChoice {
+  lat: number | null;
+  lng: number | null;
+  city: CityKey | null;
+  source: LocationSource;
+}

@@ -36,6 +36,17 @@ export interface Invite {
   expiresAt: string;
 }
 
+/** A threaded comment on a project (M7 collaboration). */
+export interface ProjectComment {
+  id: string;
+  projectId: string;
+  authorId: string;
+  /** Denormalised at write time so listing needs no user-store join. */
+  authorName: string;
+  body: string;
+  createdAt: string;
+}
+
 export interface ProjectStore {
   /** Projects the user owns or has been invited to, newest first. */
   list(userId: string): Promise<Project[]>;
@@ -53,6 +64,14 @@ export interface ProjectStore {
   createInvite(userId: string, projectId: string): Promise<Invite>;
   /** Redeem an invite; adds the user as an expert. Returns the project id, or null. */
   acceptInvite(userId: string, token: string): Promise<string | null>;
+
+  // ── comments (M7) ──
+  /** Comments on a project the user can access, oldest first. */
+  listComments(userId: string, projectId: string): Promise<ProjectComment[]>;
+  /** Post a comment. Access-gated (owner or member). */
+  addComment(userId: string, authorName: string, projectId: string, body: string): Promise<ProjectComment>;
+  /** Delete a comment the user authored. */
+  deleteComment(userId: string, commentId: string): Promise<void>;
 }
 
 const INVITE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -100,6 +119,33 @@ function toProject(r: ProjectRow): Project {
     updatedAt: r.updated_at,
   };
 }
+
+type CommentRow = {
+  id: string;
+  project_id: string;
+  author_id: string;
+  author_name: string;
+  body: string;
+  created_at: string;
+};
+
+function toComment(r: CommentRow): ProjectComment {
+  return {
+    id: r.id,
+    projectId: r.project_id,
+    authorId: r.author_id,
+    authorName: r.author_name,
+    body: r.body,
+    createdAt: r.created_at,
+  };
+}
+
+/** Trim and cap a comment body. Returns "" for an empty comment. */
+function cleanBody(body: string): string {
+  return body.trim().slice(0, 2000);
+}
+
+const COMMENT_COLS = "id, project_id, author_id, author_name, body, created_at";
 
 let client: SupabaseClient | null = null;
 function db(): SupabaseClient {
@@ -271,6 +317,51 @@ const supabaseProjectStore: ProjectStore = {
     if (up.error) throw up.error;
     return inv.project_id;
   },
+
+  async listComments(userId, projectId) {
+    if (!(await this.get(userId, projectId))) return [];
+    const { data, error } = await db()
+      .from("project_comments")
+      .select(COMMENT_COLS)
+      .eq("project_id", projectId)
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+    return (data as CommentRow[]).map(toComment);
+  },
+
+  async addComment(userId, authorName, projectId, body) {
+    if (!(await this.get(userId, projectId))) throw new Error("Project not accessible");
+    const text = cleanBody(body);
+    if (!text) throw new Error("Empty comment");
+    const comment: ProjectComment = {
+      id: randomUUID(),
+      projectId,
+      authorId: userId,
+      authorName,
+      body: text,
+      createdAt: nowIso(),
+    };
+    const { error } = await db().from("project_comments").insert({
+      id: comment.id,
+      project_id: projectId,
+      author_id: userId,
+      author_name: authorName,
+      body: text,
+      created_at: comment.createdAt,
+    });
+    if (error) throw error;
+    return comment;
+  },
+
+  async deleteComment(userId, commentId) {
+    // Author-scoped: the eq on author_id makes deleting someone else's a no-op.
+    const { error } = await db()
+      .from("project_comments")
+      .delete()
+      .eq("id", commentId)
+      .eq("author_id", userId);
+    if (error) throw error;
+  },
 };
 
 // ── JSON-file implementation (local development) ─────────────────────────────
@@ -279,6 +370,7 @@ const DATA_DIR = process.env.MILAGRO_DATA_DIR ?? join(process.cwd(), ".data");
 const PROJECTS_FILE = process.env.MILAGRO_PROJECTS_FILE ?? join(DATA_DIR, "projects.json");
 const MEMBERS_FILE = join(DATA_DIR, "project_members.json");
 const INVITES_FILE = join(DATA_DIR, "project_invites.json");
+const COMMENTS_FILE = join(DATA_DIR, "project_comments.json");
 
 type MemberRow = { projectId: string; userId: string; role: ProjectRole };
 type InviteRow = { token: string; projectId: string; createdBy: string; expiresAt: string; revoked: boolean };
@@ -373,6 +465,37 @@ const fileProjectStore: ProjectStore = {
       await writeJson(MEMBERS_FILE, members);
     }
     return inv.projectId;
+  },
+  async listComments(userId, projectId) {
+    if (!(await this.get(userId, projectId))) return [];
+    const all = await readJson<ProjectComment>(COMMENTS_FILE);
+    return all
+      .filter((c) => c.projectId === projectId)
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  },
+  async addComment(userId, authorName, projectId, body) {
+    if (!(await this.get(userId, projectId))) throw new Error("Project not accessible");
+    const text = cleanBody(body);
+    if (!text) throw new Error("Empty comment");
+    const comment: ProjectComment = {
+      id: randomUUID(),
+      projectId,
+      authorId: userId,
+      authorName,
+      body: text,
+      createdAt: nowIso(),
+    };
+    const all = await readJson<ProjectComment>(COMMENTS_FILE);
+    all.push(comment);
+    await writeJson(COMMENTS_FILE, all);
+    return comment;
+  },
+  async deleteComment(userId, commentId) {
+    const all = await readJson<ProjectComment>(COMMENTS_FILE);
+    await writeJson(
+      COMMENTS_FILE,
+      all.filter((c) => !(c.id === commentId && c.authorId === userId)),
+    );
   },
 };
 

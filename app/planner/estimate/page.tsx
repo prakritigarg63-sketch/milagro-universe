@@ -9,6 +9,7 @@ import { StudioShell } from "@/components/planner/studio/StudioShell";
 import { StepFooter } from "@/components/planner/studio/StepFooter";
 import { costByGroup, formatLakh, projectRange } from "@/lib/planner/studio/materials";
 import { formatInr } from "@/lib/planner/units";
+import { MarketPricing } from "@/components/planner/pricing/MarketPricing";
 import type { CostTier } from "@/lib/planner/types";
 
 /**
@@ -173,6 +174,8 @@ export default function EstimatePage() {
           </aside>
         </div>
       )}
+
+      {project && <MarketPricing project={project} />}
     </StudioShell>
   );
 }

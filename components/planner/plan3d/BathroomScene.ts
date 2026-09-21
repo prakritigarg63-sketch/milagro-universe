@@ -11,7 +11,7 @@ import type {
   Wall,
 } from "@/lib/planner/types";
 import type { BuildProgress } from "@/lib/planner/build/phases";
-import { IN, STYLE_KITS, makeTileTexture, tiledFor, type TileSpec } from "./textures";
+import { IN, STYLE_KITS, makeTileTexture, mergeKit, tiledFor, type ScenePalette, type TileSpec } from "./textures";
 import { buildAddOn, buildFixture, makeKitMaterials, mesh, type KitMaterials } from "./fixtures";
 
 export interface SceneModel {
@@ -20,6 +20,8 @@ export interface SceneModel {
   fixtures: FixtureChoice[];
   style: ArchitectureStyle;
   addOns: AddOnType[];
+  /** Optional finish overrides so the render reflects the user's design picks. */
+  palette?: ScenePalette;
 }
 
 /*
@@ -256,6 +258,35 @@ export class BathroomScene {
     this.dirty = true;
   }
 
+  /**
+   * A PNG snapshot of the current view at a chosen resolution.
+   *
+   * Renders once and reads the canvas back in the *same* synchronous call, so it
+   * works even though the renderer has no `preserveDrawingBuffer` — the browser
+   * only clears the drawing buffer once control returns to it. The on-screen size
+   * is restored immediately after, so the live view the user is orbiting is
+   * untouched. Captures exactly the angle they have framed.
+   */
+  capture(width: number, height: number): string {
+    const prev = new THREE.Vector2();
+    this.renderer.getSize(prev);
+    const prevRatio = this.renderer.getPixelRatio();
+
+    this.renderer.setPixelRatio(1);
+    this.renderer.setSize(width, height, false);
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.render(this.scene, this.camera);
+    const url = this.renderer.domElement.toDataURL("image/png");
+
+    this.renderer.setPixelRatio(prevRatio);
+    this.renderer.setSize(prev.x, prev.y, false);
+    this.camera.aspect = prev.x / prev.y || 1;
+    this.camera.updateProjectionMatrix();
+    this.dirty = true;
+    return url;
+  }
+
   dispose() {
     cancelAnimationFrame(this.raf);
     this.resizeObserver.disconnect();
@@ -369,7 +400,7 @@ export class BathroomScene {
 
   private build(model: SceneModel): Built {
     const { room, plan, fixtures, style, addOns } = model;
-    const kit = STYLE_KITS[style];
+    const kit = mergeKit(STYLE_KITS[style], model.palette);
     const L = room.lengthInches * IN;
     const W = room.widthInches * IN;
     const H = room.heightInches * IN;

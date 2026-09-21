@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Caveat, Hanken_Grotesk, Marcellus, Noto_Sans_Devanagari } from "next/font/google";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { LOCALE_SCRIPT } from "@/lib/i18n/locale";
 import { THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
@@ -54,6 +55,22 @@ export const metadata: Metadata = {
   title: "Milagro Universe — From ideas to beautiful bathrooms",
   description:
     "Plan, visualize, estimate and build your bathroom in one place. Measurements to layouts, styles, material lists and costed plans.",
+  applicationName: "Milagro Universe",
+  appleWebApp: { capable: true, title: "Milagro", statusBarStyle: "default" },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf8f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1824" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -77,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: LOCALE_SCRIPT }} />
       </head>
       <body className="antialiased">
+        <ServiceWorkerRegister />
         <AuthProvider>
           <AnalyticsProvider />
           {children}

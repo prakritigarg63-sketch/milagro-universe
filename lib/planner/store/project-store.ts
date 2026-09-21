@@ -25,7 +25,10 @@ import type {
   FixtureChoice,
   RoomPreset,
   Unit,
+  TileLookChoice,
+  LocationChoice,
 } from "@/lib/planner/types";
+import type { Trade } from "@/lib/planner/data/types";
 import { DIM_BOUNDS } from "@/lib/planner/defaults";
 import { EVENTS } from "@/lib/analytics/events";
 import { track } from "@/lib/analytics/mixpanel";
@@ -82,6 +85,11 @@ interface ProjectState {
   setFinish: (surface: FinishSurface, optionId: string) => void;
   /** Keep a product for a category (Screen 9). */
   setProduct: (category: ProductCategory, optionId: string) => void;
+
+  // Section B — one brand per trade, tile look, and location (stored in blob).
+  setBrand: (trade: Trade, name: string) => void;
+  setTileLook: (patch: Partial<TileLookChoice>) => void;
+  setLocation: (patch: Partial<LocationChoice>) => void;
 
   // Step 1 — room
   setRoomName: (name: string) => void;
@@ -329,6 +337,34 @@ export const useProjectStore = create<ProjectState>((set, get) => {
 
     setProduct(category, optionId) {
       mutate((p) => ({ ...p, products: { ...(p.products ?? {}), [category]: optionId } }));
+    },
+
+    setBrand(trade, name) {
+      mutate((p) => ({
+        ...p,
+        tradeBrands: {
+          sanitary: null,
+          tiles: null,
+          electrical: null,
+          wiring: null,
+          ...(p.tradeBrands ?? {}),
+          [trade]: name,
+        },
+      }));
+    },
+
+    setTileLook(patch) {
+      mutate((p) => ({
+        ...p,
+        tileLook: { colour: null, finish: null, ...(p.tileLook ?? {}), ...patch },
+      }));
+    },
+
+    setLocation(patch) {
+      mutate((p) => ({
+        ...p,
+        location: { lat: null, lng: null, city: null, source: null, ...(p.location ?? {}), ...patch },
+      }));
     },
 
     setRoomName(name) {
