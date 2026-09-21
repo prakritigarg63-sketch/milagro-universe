@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
 import { useT } from "@/lib/i18n/useT";
 import { useProjectStore } from "@/lib/planner/store/project-store";
@@ -8,7 +8,8 @@ import { useEnsureProject } from "@/lib/planner/store/use-ensure-project";
 import { StudioShell } from "@/components/planner/studio/StudioShell";
 import { StepFooter } from "@/components/planner/studio/StepFooter";
 import { RoomPlan } from "@/components/planner/studio/RoomPlan";
-import { Room3DWebGL } from "@/components/planner/studio/Room3DWebGL";
+import { Room3DWebGL, type RoomSceneApi } from "@/components/planner/studio/Room3DWebGL";
+import { ShareDesign } from "@/components/planner/share/ShareDesign";
 import { FINISH_GROUPS, optionFor } from "@/lib/planner/studio/finishes";
 import type { FinishSurface, Finishes } from "@/lib/planner/types";
 
@@ -28,6 +29,7 @@ export default function VisualizePage() {
   const [view, setView] = useState<"2d" | "3d">("3d");
   const [openSurface, setOpenSurface] = useState<FinishSurface | null>(null);
   const [showBefore, setShowBefore] = useState(false);
+  const sceneRef = useRef<RoomSceneApi | null>(null);
 
   const room = project?.room;
   const fixtures = project?.placedFixtures ?? project?.plan?.fixtures ?? [];
@@ -75,6 +77,8 @@ export default function VisualizePage() {
               </button>
             )}
 
+            {view === "3d" && <ShareDesign project={project} sceneRef={sceneRef} />}
+
             <span className="ml-auto text-[12.5px] text-body-soft">
               {chosenCount
                 ? `${chosenCount} ${t("finishes chosen")}`
@@ -85,7 +89,13 @@ export default function VisualizePage() {
           {/* ── The room ─────────────────────────────────────────────── */}
           <div className="mt-4 overflow-hidden rounded-2xl border border-hairline bg-surface-raised p-5 sm:p-8">
             {view === "3d" ? (
-              <Room3DWebGL project={project} bare={showBefore} />
+              <Room3DWebGL
+                project={project}
+                bare={showBefore}
+                onReady={(api) => {
+                  sceneRef.current = api;
+                }}
+              />
             ) : (
               <RoomPlan
                 room={room}

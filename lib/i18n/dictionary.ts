@@ -1003,6 +1003,17 @@ export const hi: Record<string, string> = {
     "आपके बाथरूम का 3D दृश्य — घुमाने के लिए खींचें, ज़ूम के लिए स्क्रॉल करें",
   "3D view unavailable — showing the 2D plan": "3D दृश्य उपलब्ध नहीं — 2D प्लान दिखा रहे हैं",
 
+  /* ── studio — share your design (Section C) ─────────────────────────── */
+  "Share design": "डिज़ाइन साझा करें",
+  "Share your design": "अपना डिज़ाइन साझा करें",
+  "Preparing your image…": "आपकी छवि तैयार हो रही है…",
+  "Your bathroom design": "आपके बाथरूम का डिज़ाइन",
+  "Your bathroom design, ready to share": "आपके बाथरूम का डिज़ाइन, साझा करने के लिए तैयार",
+  "Finishes": "फ़िनिश",
+  "Download image": "छवि डाउनलोड करें",
+  "My bathroom design": "मेरे बाथरूम का डिज़ाइन",
+  "Couldn't create the image. Please try again.": "छवि नहीं बन सकी। कृपया पुनः प्रयास करें।",
+
   /* ── studio — comments (M7 collaboration) ───────────────────────────── */
   "Comments": "टिप्पणियाँ",
   "Member": "सदस्य",

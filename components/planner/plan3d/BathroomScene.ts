@@ -258,6 +258,35 @@ export class BathroomScene {
     this.dirty = true;
   }
 
+  /**
+   * A PNG snapshot of the current view at a chosen resolution.
+   *
+   * Renders once and reads the canvas back in the *same* synchronous call, so it
+   * works even though the renderer has no `preserveDrawingBuffer` — the browser
+   * only clears the drawing buffer once control returns to it. The on-screen size
+   * is restored immediately after, so the live view the user is orbiting is
+   * untouched. Captures exactly the angle they have framed.
+   */
+  capture(width: number, height: number): string {
+    const prev = new THREE.Vector2();
+    this.renderer.getSize(prev);
+    const prevRatio = this.renderer.getPixelRatio();
+
+    this.renderer.setPixelRatio(1);
+    this.renderer.setSize(width, height, false);
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.render(this.scene, this.camera);
+    const url = this.renderer.domElement.toDataURL("image/png");
+
+    this.renderer.setPixelRatio(prevRatio);
+    this.renderer.setSize(prev.x, prev.y, false);
+    this.camera.aspect = prev.x / prev.y || 1;
+    this.camera.updateProjectionMatrix();
+    this.dirty = true;
+    return url;
+  }
+
   dispose() {
     cancelAnimationFrame(this.raf);
     this.resizeObserver.disconnect();

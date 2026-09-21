@@ -51,7 +51,21 @@ function subscribeReducedMotion(cb: () => void) {
   return () => mq.removeEventListener("change", cb);
 }
 
-export function Room3DWebGL({ project, bare = false }: { project: Project; bare?: boolean }) {
+/** What a parent can do with the live scene — capture the framed view as a PNG. */
+export interface RoomSceneApi {
+  capture: (width: number, height: number) => string;
+}
+
+export function Room3DWebGL({
+  project,
+  bare = false,
+  onReady,
+}: {
+  project: Project;
+  bare?: boolean;
+  /** Called with a capture handle when the scene is live, and `null` when it goes away. */
+  onReady?: (api: RoomSceneApi | null) => void;
+}) {
   const t = useT();
   const reduced = useSyncExternalStore(
     subscribeReducedMotion,
@@ -63,6 +77,12 @@ export function Room3DWebGL({ project, bare = false }: { project: Project; bare?
   const sceneRef = useRef<BathroomScene | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [version, setVersion] = useState(0);
+
+  // Keep the latest onReady without re-running the scene lifecycle when it changes.
+  const onReadyRef = useRef(onReady);
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  });
 
   // The positioned plan the scene draws from — respect the user's canvas edits.
   const basePlan = project.plan ?? generateLayout(project.room, project.fixtures);
@@ -81,12 +101,14 @@ export function Room3DWebGL({ project, bare = false }: { project: Project; bare?
         sceneRef.current = instance;
         setStatus("ready");
         setVersion((v) => v + 1);
+        onReadyRef.current?.({ capture: (w, h) => instance!.capture(w, h) });
       })
       .catch(() => {
         if (!cancelled) setStatus("error");
       });
     return () => {
       cancelled = true;
+      onReadyRef.current?.(null);
       instance?.dispose();
       sceneRef.current = null;
     };
