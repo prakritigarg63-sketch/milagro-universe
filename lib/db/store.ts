@@ -54,9 +54,12 @@ function serialise<T>(job: () => Promise<T>): Promise<T> {
   return run;
 }
 
+// The turbopackIgnore comments below stop Turbopack tracing FILE's runtime path,
+// which otherwise drags the whole project into every server bundle for a store
+// that never runs in production.
 async function read(): Promise<Database> {
   try {
-    const raw = await readFile(FILE, "utf8");
+    const raw = await readFile(/*turbopackIgnore: true*/ FILE, "utf8");
     const parsed = JSON.parse(raw) as Partial<Database>;
     return { users: parsed.users ?? [], accounts: parsed.accounts ?? [] };
   } catch {
@@ -67,10 +70,10 @@ async function read(): Promise<Database> {
 
 /** Write to a sibling temp file and rename, so a crash mid-write cannot truncate. */
 async function write(db: Database): Promise<void> {
-  await mkdir(dirname(FILE), { recursive: true });
+  await mkdir(/*turbopackIgnore: true*/ dirname(FILE), { recursive: true });
   const tmp = `${FILE}.${process.pid}.tmp`;
-  await writeFile(tmp, JSON.stringify(db, null, 2), "utf8");
-  await rename(tmp, FILE);
+  await writeFile(/*turbopackIgnore: true*/ tmp, JSON.stringify(db, null, 2), "utf8");
+  await rename(/*turbopackIgnore: true*/ tmp, FILE);
 }
 
 const fileStore: UserStore = {
